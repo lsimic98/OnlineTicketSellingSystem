@@ -1,0 +1,170 @@
+@charset "utf-8";
+/* CSS Document */
+
+html{
+	background-image:url(../images/background.png);
+	background-attachment:fixed;
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+body{
+    font-family: 'Raleway', sans-serif;
+
+	}
+
+h1{font-size:36px;}
+h2{font-size:32px;}
+h3{font-size:30px;}
+h4{font-size:26px;}
+h5{font-size:20px;}
+h6{font-size:18px;}
+
+#wrapper{
+	margin:0 auto;
+	padding:0;
+	width:1200px;
+}
+#head{
+	background-color:#CC494B;
+	overflow:hidden;
+	margin-bottom:1px;
+	
+}
+#logo{
+	float:left;
+}
+#nav{
+	margin-left:250px;
+}
+#nav ul{
+	margin:0;
+	padding:0;
+	list-style:none;
+	
+}
+
+#nav ul li{
+	float:left;
+	font-size:20px;
+	color:#fff;
+	height: 80px;
+  line-height:80px;
+ 
+	
+}
+
+#nav ul li a:link,
+#nav ul li a:visited{
+	color:#fff;
+	text-decoration:none;
+}
+#nav ul li a:hover{
+	background-color:#6b46bb;
+}
+#nav ul li a:active{
+	color:#00000;
+}
+#nav ul li a{
+	padding:10px;
+	height:62px;
+	display:block;
+	vertical-align:central;
+}
+	
+
+
+#slika{
+	position:absolute;
+	top:260px;
+	left:800px;
+	
+}
+#banner{
+	position:relative;
+	margin-bottom:0px;
+	
+}
+#main{
+	width:1180px;
+	background-color:#fff;
+	padding:10px;
+	float:left;
+	overflow:hidden;
+	margin-bottom:5px;
+	
+	
+}
+
+#main h1, h2, h3{
+	border-bottom:5px solid #CC494B;
+	margin-bottom:10px;
+}
+.dugme{
+  margin-left:750px;
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 22px;
+  border-radius:11px;
+}
+
+
+
+#side h5, h6{
+	border-bottom:5px solid #A4A2A2;
+}
+#side ul{
+	list-style:none;
+	padding:0;
+}
+#side ul li{
+	float:left;
+	
+	padding:10px;
+}
+#side ul li a:link,
+#side ul li a:visited{
+	color:#fff;
+}
+#side ul li a:hover{
+	color:#D46E70;
+}
+.deo1{
+	overflow:hidden;
+}
+.deo1 img{
+	float:left;
+}
+.deo1 h2{
+	margin-left:5px;
+}
+
+
+
+.deo3 img{
+	float:left;
+	margin-right:5px;
+}
+.deo3{
+	width:420px;
+	float:left;
+	margin-top:0px;
+}
+.deo3 h4{
+	margin-top:0;
+}
+#foot{
+	clear:both;
+	height:40px;
+	background-color:#DADDDB;
+	text-align:center;
+	
+	
+}
+
+	
+	
