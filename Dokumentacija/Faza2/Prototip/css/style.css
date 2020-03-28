@@ -2,7 +2,7 @@
 /* CSS Document */
 
 html{
-	background-image:url(../images/background.png);
+	background-image:url(../images/background.jpg);
 	background-attachment:fixed;
 	background-repeat:no-repeat;
 	background-size:cover;
@@ -25,7 +25,7 @@ h6{font-size:18px;}
 	width:1200px;
 }
 #head{
-	background-color:#CC494B;
+	background-color:#BF0000;
 	overflow:hidden;
 	margin-bottom:1px;
 	
@@ -47,9 +47,8 @@ h6{font-size:18px;}
 	float:left;
 	font-size:20px;
 	color:#fff;
-	height: 80px;
-  line-height:80px;
- 
+
+	  
 	
 }
 
@@ -59,16 +58,17 @@ h6{font-size:18px;}
 	text-decoration:none;
 }
 #nav ul li a:hover{
-	background-color:#6b46bb;
+	background-color:#222151;
 }
 #nav ul li a:active{
-	color:#00000;
+	color:#000;
 }
 #nav ul li a{
-	padding:10px;
-	height:62px;
+	padding-left:20px;
+	padding-right: 20px;
 	display:block;
-	vertical-align:central;
+	height: 84px;
+ 	line-height:84px;
 }
 	
 
@@ -96,7 +96,7 @@ h6{font-size:18px;}
 }
 
 #main h1, h2, h3{
-	border-bottom:5px solid #CC494B;
+	border-bottom:5px solid #BF0000;
 	margin-bottom:10px;
 }
 .dugme{
@@ -143,7 +143,85 @@ h6{font-size:18px;}
 	margin-left:5px;
 }
 
+.form-style-1 {
+	margin:10px auto;
+	max-width: 400px;
+	padding: 20px 12px 10px 20px;
+	font: 13px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.form-style-1 li {
+	padding: 0;
+	display: block;
+	list-style: none;
+	margin: 10px 0 0 0;
+}
+.form-style-1 label{
+	margin:0 0 3px 0;
+	padding:0px;
+	display:block;
+	font-weight: bold;
+}
+.form-style-1 input[type=text], 
+.form-style-1 input[type=date],
+.form-style-1 input[type=datetime],
+.form-style-1 input[type=number],
+.form-style-1 input[type=search],
+.form-style-1 input[type=time],
+.form-style-1 input[type=url],
+.form-style-1 input[type=email],
+textarea, 
+select{
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	border:1px solid #BEBEBE;
+	padding: 7px;
+	margin:0px;
+	outline: none;	
+}
+.form-style-1 input[type=text]:focus, 
+.form-style-1 input[type=date]:focus,
+.form-style-1 input[type=datetime]:focus,
+.form-style-1 input[type=number]:focus,
+.form-style-1 input[type=search]:focus,
+.form-style-1 input[type=time]:focus,
+.form-style-1 input[type=url]:focus,
+.form-style-1 input[type=email]:focus,
+.form-style-1 textarea:focus, 
+.form-style-1 select:focus{
+	-moz-box-shadow: 0 0 8px #88D5E9;
+	-webkit-box-shadow: 0 0 8px #88D5E9;
+	box-shadow: 0 0 8px #88D5E9;
+	border: 1px solid #88D5E9;
+}
+.form-style-1 .field-divided{
+	width: 49%;
+}
 
+.form-style-1 .field-long{
+	width: 100%;
+}
+.form-style-1 .field-select{
+	width: 100%;
+}
+.form-style-1 .field-textarea{
+	height: 100px;
+}
+.form-style-1 input[type=submit], .form-style-1 input[type=button]{
+	background: #4B99AD;
+	padding: 8px 15px 8px 15px;
+	border: none;
+	color: #fff;
+}
+.form-style-1 input[type=submit]:hover, .form-style-1 input[type=button]:hover{
+	background: #4691A4;
+	box-shadow:none;
+	-moz-box-shadow:none;
+	-webkit-box-shadow:none;
+}
+.form-style-1 .required{
+	color:red;
+}
 
 .deo3 img{
 	float:left;
@@ -162,6 +240,7 @@ h6{font-size:18px;}
 	height:40px;
 	background-color:#DADDDB;
 	text-align:center;
+	line-height:40px;
 	
 	
 }
