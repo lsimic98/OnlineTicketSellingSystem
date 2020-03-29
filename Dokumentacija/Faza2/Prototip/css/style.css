@@ -256,6 +256,7 @@ h6{font-size:18px;}
 .form-style-1 input[type=time],
 .form-style-1 input[type=url],
 .form-style-1 input[type=email],
+.form-style-1 input[type=password],
 textarea, 
 select{
 	box-sizing: border-box;
@@ -274,6 +275,7 @@ select{
 .form-style-1 input[type=time]:focus,
 .form-style-1 input[type=url]:focus,
 .form-style-1 input[type=email]:focus,
+.form-style-1 input[type=password]:focus,
 .form-style-1 textarea:focus, 
 .form-style-1 select:focus{
 	-moz-box-shadow: 0 0 8px #88D5E9;
