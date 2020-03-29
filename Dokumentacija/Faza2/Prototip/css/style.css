@@ -124,6 +124,7 @@ h6{font-size:18px;}
 	
 }
 #main{
+	display: block;
 	width:1180px;
 	background-color:#fff;
 	padding:10px;
@@ -150,7 +151,11 @@ h6{font-size:18px;}
   font-size: 22px;
   border-radius:11px;
 }
+.pagination{
+	display: table;
+	margin:0 auto;
 
+}
 .pagination a {
 	font-family: Arial,Helvetica,sans-serif;
 	color: black;
@@ -197,21 +202,7 @@ h6{font-size:18px;}
 .deo1 h2{
 	margin-left:5px;
 }
-#mainOglas{
-	display: block; 
-	width:1180px;
-	background-color:#fff;
-	padding:10px;
-	float:left;
-	overflow:hidden;
-	margin-bottom:5px;
 
-}
-
-#mainOglas h1{
-	border-bottom:5px solid #BF0000;
-	margin-bottom:20px;
-}
 
 .naslovOglasi{
 	float: left;
