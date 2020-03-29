@@ -73,7 +73,43 @@ h6{font-size:18px;}
 	height: 84px;
  	line-height:84px;
 }
-
+.searchBar{
+	float: right;
+	height: 84px;
+	 line-height:84px;
+	 margin-right: 20px;
+	 
+}
+.current{
+	background-color:#222151 ;
+}
+.searchText{
+	padding: 5px;
+	font-size: 16px;
+	border: 1px solid grey;
+	background: #f1f1f1;
+	border-radius: 4px;
+  }
+  
+  /* Style the submit button */
+  .stupidButton {
+	
+	
+	padding:5px 10px 5px 10px;
+	background: rgb(174, 174, 175);
+	color: white;
+	font-size: 16px;
+	border: 1px solid grey;
+	border-left: none; /* Prevent double borders */
+	cursor: pointer;
+  }
+  
+.stupidButton:hover {
+	background:rgb(60, 58, 70);
+  }
+  
+  /* Clear floats */
+  
 
 
 #slika{

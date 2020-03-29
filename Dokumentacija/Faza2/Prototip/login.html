@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <title>karte.rs</title>
 <link href="css/style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 <style type="text/css">
@@ -25,16 +26,27 @@
         </div><!-- kraj logo-->
         
     <div id="nav">
-        <ul>
-            <li><a href="dogadjaji.html" >Dogadjaji</a></li>
-             <li><a href="forma.html" >Registracija</a></li>
-             <li><a href="login.html" >Logovanje</a></li>
-             <li><a href="oglasi.html" >Prodaja Karata</a></li>
-           
-             
-         </ul>
+                <ul>
+                    <li><a href="index.html" >Početna</a></li>
+                     <li><a href="forma.html" >Registracija</a></li>
+                     <li><a class="current" href="login.html" >Logovanje</a></li>
+                     <li><a href="oglasi.html" >Prodaja Karata</a></li>
+                   
+                     
+                 </ul>
+
             
         </div><!-- kraj nav-->
+        <div class="searchBar">
+            <table>
+                <form class="example">
+                <tr>
+                    <td>  <input type="search" class = "searchText"placeholder="Unesite tekst za pretragu"></td>
+                    <td> <button type="submit"class= "stupidButton"> <i class="fa fa-search" aria-hidden="true"></i></button></td>
+                </tr>
+            </form>
+            </table>
+        </div>
     
     
     </div><!-- kraj head-->
@@ -50,14 +62,14 @@
         <input type="email" name="field3" class="field-long" />
     </li>
 	 <li>
-        <label>Password: <span class="required">*</span></label>
-        <input type="email" name="field3" class="field-long" />
+        <label>Šifra: <span class="required">*</span></label>
+        <input type="password" name="field3" class="field-long" />
     </li>
 	
  
 
     <li>
-        <input type="submit" value="Login" />
+        <input type="submit" value="Prijavi se" />
     </li>
 </ul>
 </form>
