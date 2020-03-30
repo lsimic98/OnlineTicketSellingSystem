@@ -32,6 +32,10 @@ h6{font-size:18px;}
 	height: 70px;
 	
 }
+.icon{
+	display: none;
+}
+
 #logo{
 	
 	float:left;
@@ -172,7 +176,7 @@ h6{font-size:18px;}
 	text-align: center;
   }
 .dugme{
-  
+
   background-color: #4CAF50; /* Green */
   border: none;
   color: white;
@@ -392,7 +396,7 @@ select{
 }
 
 #mainUser{
-	display: block;
+	
 	width:240px;
 	background-color:#fff;
 	float:left;
@@ -424,4 +428,172 @@ select{
 }
 
 	
+@media screen and (min-width:768px) and (max-width:1023px){
 	
+	#wrapper{
+		width:700px;
+		
+		
+		}	
+		#head{
+			width: auto;
+			height: auto;
+		}
+
+		#nav{
+			width: auto;
+		}
+		.searchBar{
+			width: auto;
+			float: left;
+		}
+		#korisnik{
+			width: auto;
+		}
+		#main{
+			width:500px;
+			text-align: center;
+			float: none;
+			margin:auto;
+
+		}
+		#main img{
+			
+			width:100%;
+				
+		}
+		.deo1{
+
+			width: auto;
+		}
+		#mainUser{
+			width: auto;
+			float: none;
+			text-align: center;
+		}
+		#mainUser p {
+			text-align: center;
+		}
+		#mainUser img{
+			width: 20%;
+		}
+		#mainUser ul{
+			list-style: none;
+
+		}
+
+		#side{
+			width: auto;
+			text-align: center;
+			float: none;
+		}
+
+		.side2{
+			width: auto;
+			text-align: center;
+			float: none;
+		}
+
+
+}
+
+@media screen and (max-width:767px){
+	#wrapper{
+		width:80%;		
+				
+		}	
+		
+
+		#head{
+			height: auto;
+		}
+		#logo {
+			width: auto;
+			float: none;
+			text-align: center;		
+			
+		}
+		
+		
+		
+		#nav{	
+			width: auto;
+			height: 50%;	
+			display: none;
+		}
+		.icon{
+			display: block;
+			float: right;
+			margin: 10px;
+			width: 50%;
+		}
+
+		.icon a:link,
+		.icon a:visited{
+			color: #fff;
+			
+		}
+		.icon a:hover{
+			color:#222151;
+	
+		}
+		#nav ul{
+			height: 50%;
+		}
+		
+		#nav ul li{
+			float:none;
+			text-align:center;
+		}
+	
+		#nav ul li a{
+					
+				padding: 5px 10px;
+				height:auto;
+				}
+				
+	
+		#main{
+			width:auto;
+			margin-right:0;
+			float:none;
+			
+
+		}
+		#main h2{
+			text-align:center;
+		}
+		#main img{
+			
+			width:100%;	
+		}
+
+	#mainUser{
+		width: auto;
+		text-align: center;
+		float: none;
+	}
+	#mainUser img{
+		width: 20%;
+		text-align: center;
+	}
+	.oglas{
+		width: auto;
+		float: none;
+	}
+
+	#side{
+		width:auto;
+		float:none;
+		padding:10px;
+	}
+	.side2 {
+		width:auto;
+		float:none;
+		padding:10px;
+	}
+	
+	
+	
+	
+}
