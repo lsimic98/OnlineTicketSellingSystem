@@ -403,6 +403,14 @@ select{
 #mainUser img{
 	max-width: 100%;
 }
+#mainUser a:link,
+#mainUser a:visited{
+	text-decoration: none;
+	color:#4691A4;
+}
+#mainUser a:hover{
+	color: #BF0000;
+}
 
 #foot{
 	clear:both;
