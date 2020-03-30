@@ -22,33 +22,37 @@ h6{font-size:18px;}
 #wrapper{
 	margin:0 auto;
 	padding:0;
+	background-color: #fff;
 	width:1200px;
 }
 #head{
 	background-color:#BF0000;
 	overflow:hidden;
 	margin-bottom:1px;
+	height: 70px;
 	
 }
 #logo{
+	
 	float:left;
+}
+#logo img{
+	height: 70px;
+	width: 200px;
 }
 	
 
 
-#nav{
-	margin-left:250px;
-}
+
 #nav ul{
 	margin:0;
 	padding:0;
 	list-style:none;
-	
 }
 
 #nav ul li{
 	float:left;
-	font-size:20px;
+	font-size:18px;
 	color:#fff;
 	cursor: pointer;
 	  
@@ -67,19 +71,37 @@ h6{font-size:18px;}
 	color:#000;
 }
 #nav ul li a{
-	padding-left:20px;
-	padding-right: 20px;
+	padding-left:10px;
+	padding-right: 10px;
 	display:block;
-	height: 84px;
- 	line-height:84px;
+	height: 70px;
+ 	line-height:70px;
 }
 .searchBar{
-	float: right;
-	height: 84px;
-	 line-height:84px;
-	 margin-right: 20px;
+	float: left;
+	height: 70px;
+	 line-height:70px;
+	margin:0 0 0 20px; 
 	 
 }
+
+#korisnik{
+	float: right;
+	line-height: 70px;
+	height: 70px;
+	margin-right: 10px;
+}
+#korisnik a,
+#korisnik a:link,
+#korisnik a:visited{
+	text-decoration: none;
+	color: #fff;
+	
+}
+#korisnik a:hover{
+	color: blueviolet;
+}
+
 .current{
 	background-color:#222151 ;
 }
@@ -130,15 +152,25 @@ h6{font-size:18px;}
 	padding:10px;
 	float:left;
 	overflow:hidden;
-	margin-bottom:5px;
-	
-	
+	margin-bottom:5px;	
 }
 
 #main h1, h2, h3{
 	border-bottom:5px solid #BF0000;
 	margin-bottom:10px;
 }
+.grid-container {
+	display: grid;
+	grid-template-columns: auto auto auto;
+	padding: 10px;
+  }
+  
+  .grid-item {
+	background-color: rgba(255, 255, 255, 0.8);
+	padding: 20px;
+	font-size: 25px;
+	text-align: center;
+  }
 .dugme{
   margin-left:750px;
   background-color: #4CAF50; /* Green */
@@ -155,23 +187,6 @@ h6{font-size:18px;}
 	display: table;
 	margin:0 auto;
 
-<<<<<<< HEAD
-||||||| 5871034
-.pagination a {
-	font-family: Arial,Helvetica,sans-serif;
-	color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-  transition: background-color .3s;
-}
-
-/* Style the active/current link */
-.pagination a.active {
-  background-color: dodgerblue;
-  color: white;
-}
-=======
 }
 .pagination a {
 	font-family: Arial,Helvetica,sans-serif;
@@ -187,27 +202,55 @@ h6{font-size:18px;}
   background-color: dodgerblue;
   color: white;
 }
->>>>>>> 4681eff542f848c26ffb3affb6e1e3eb6244b8fd
 
 
-#side h5, h6{
-	border-bottom:5px solid #A4A2A2;
+#side{
+	
+	width: 400px;
+	float: left;
+	background-color: #fff;
+	
 }
+
 #side ul{
 	list-style:none;
 	padding:0;
 }
-#side ul li{
-	float:left;
-	
-	padding:10px;
-}
+
 #side ul li a:link,
 #side ul li a:visited{
 	color:#fff;
 }
 #side ul li a:hover{
 	color:#D46E70;
+}
+
+.side2{
+	width: 540px;
+	float: left;
+}
+.side2 h2{
+	text-align:center;
+
+}
+.side2 table{
+    width: 100%;
+    border-collapse:collapse;
+}
+.side2 td{
+	text-align: center;
+	padding:10px;
+}
+.side th{
+	padding: 0  10px 0 10px;
+}
+.side2 a:link,
+.side2 a:visited{
+	color:#4CAF50
+}
+.obrisi a:link,
+.obrisi a:visited{
+	color: #BF0000;
 }
 .deo1{
 	overflow:hidden;
@@ -218,30 +261,6 @@ h6{font-size:18px;}
 .deo1 h2{
 	margin-left:5px;
 }
-<<<<<<< HEAD
-#mainOglas{
-	display: table; 
-	width:1180px;
-	background-color:#fff;
-	padding:10px;
-	float:left;
-	overflow:hidden;
-	margin-bottom:5px;
-
-}
-||||||| 5871034
-#mainOglas{
-	display: block; 
-	width:1180px;
-	background-color:#fff;
-	padding:10px;
-	float:left;
-	overflow:hidden;
-	margin-bottom:5px;
-
-}
-=======
->>>>>>> 4681eff542f848c26ffb3affb6e1e3eb6244b8fd
 
 
 .naslovOglasi{
@@ -371,12 +390,27 @@ select{
 .deo3 h4{
 	margin-top:0;
 }
+
+#mainUser{
+	display: block;
+	width:240px;
+	background-color:#fff;
+	float:left;
+	overflow:hidden;
+	margin-bottom:5px;	
+	padding: 10px;
+}
+#mainUser img{
+	max-width: 100%;
+}
+
 #foot{
 	clear:both;
 	height:40px;
 	background-color:#DADDDB;
 	text-align:center;
 	line-height:40px;
+	
 	
 	
 }
