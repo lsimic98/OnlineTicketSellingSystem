@@ -25,7 +25,7 @@
     <div id="nav">
         <ul>
             <li><a href="index.html" >Početna</a></li>
-             <li><a class="current" href="forma.html" >Registracija</a></li>
+             <li><a href="forma.html" >Registracija</a></li>
              <li><a href="login.html" >Logovanje</a></li>
              <li><a href="oglasi.html" >Prodaja Karata</a></li>
            
@@ -59,34 +59,63 @@
         <input type="text" name="field3" class="field-long" />
     </li>
     <li>
-        <label>Zemlja <span class="required">*</span></label>
-        <input type="email" name="field3" class="field-long" />
+        <label>Država<span class="required">*</span></label>
+        <!--input type="text" name="field3" class="field-long" /-->
+        <select id="drzava" name="feild3" class="field-long">
+            <option value="srbija">Srbija</option>
+            <option value="hrvatska">Hrvatska</option>
+            <option value="smakedonija">Severna Makedonija</option>
+            <option value="bosna">Bosna i Hercegovina</option>
+            <option value="slovenija">Slovenija</option>
+        </select>
     </li>
-		<li>
-        <label>Korisničko ime: <span class="required">*</span></label>
-        <input type="text" name="field3" class="field-long" />
-    </li>
-	 <li>
-        <label>Šifra<span class="required">*</span></label>
-        <input type="password" name="field3" class="field-long" />
-    </li>
-	 <li>
-        <label>Povoljenja šifra <span class="required">*</span></label>
-        <input type="password" name="field3" class="field-long" />
-    </li>
+	
 	<li>
-        <label>JMBG <span class="required">*</span></label>
+        <label>Poštanski broj<span class="required">*</span></label>
         <input type="text" name="field3" class="field-long" />
     </li>
-		 <li>
-        <label>Brlk <span class="required">*</span></label>
+
+	<li>
+        <label>Grad<span class="required">*</span></label>
         <input type="text" name="field3" class="field-long" />
     </li>
+
+    <li>
+        <label>Adresa<span class="required">*</span></label>
+        <input type="text" name="field3" class="field-long" />
+    </li>
+
+    <li>
+        <br>
+        <label>
+            <img src="images/placanje.jfif" alt="logo" width="250" height="50">
+        </label>
+    </li>
+
+    <li>
+        <label>Broj kartice<span class="required">*</span></label>
+        <input type="text" name="field3" class="field-long" />
+    </li>
+
+    <li>
+        <label>Broj isteka važenja kartice (mesec/godina)<span class="required">*</span></label>
+        <input type="text" name="field1" class="field-divided" placeholder="Mesec" /> 
+        <input type="text" name="field2" class="field-divided" placeholder="Godina" />
+    </li>
+
+    <li>
+        <label>CVC/CVV2 kod<span class="required">*</span></label>
+        <input type="text" name="field3" class="field-long" />
+    </li>
+
+
+    
+    
 
  
 
     <li>
-        <input type="submit" value="Pošalji" />
+        <input type="submit" value="Plati" />
     </li>
 </ul>
 </form>
