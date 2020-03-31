@@ -46,7 +46,9 @@ h6{font-size:18px;}
 }
 	
 
-
+#nav{
+	display:block;
+}
 
 #nav ul{
 	margin:0;
@@ -203,7 +205,7 @@ h6{font-size:18px;}
 
 /* Style the active/current link */
 .pagination a.active {
-  background-color: dodgerblue;
+  background-color: #222151;
   color: white;
 }
 
@@ -442,7 +444,13 @@ select{
 
 		#nav{
 			width: auto;
+			
 		}
+		
+		.icon{
+		display: none;
+		}
+		
 		.searchBar{
 			width: auto;
 			float: left;
@@ -552,11 +560,14 @@ select{
 				height:auto;
 				}
 				
-	
+
+
+			
 		#main{
 			width:auto;
 			margin-right:0;
 			float:none;
+			text-align: center;
 			
 
 		}
