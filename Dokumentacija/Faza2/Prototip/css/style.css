@@ -82,6 +82,8 @@ h6{font-size:18px;}
 	display:block;
 	height: 70px;
  	line-height:70px;
+	transition-property: background-color;
+	transition-duration: 0.45s;
 }
 .searchBar{
 	float: left;
