@@ -1,0 +1,6 @@
+
+
+psi.sql -> MySQL  (radi sa phpmyadmin-om), koristiti ovaj fajl za kreiranje baze :)
+----------------------------------------------------------------------------------------------------
+
+DirectEngineering.sql -> MsSQL iz ovog fajla je dobijena baza psi.sql (ne radi sa phpmyadminom) :(
