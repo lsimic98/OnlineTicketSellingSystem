@@ -1,0 +1,112 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script src="{{asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
+<script type="text/javascript">
+    
+    //onClick=\"javascript: return confirm('Da li zaista želite da uklonite oglas?');\"
+    //href='".site_url("Korisnik/ukloniOglas/$vest->IdD")."'
+    $(document).ready(function(){
+        $(".delete").click(function() {
+            var id = $(this).attr('id');
+            $.ajax({
+                success: function(data){
+                     
+
+                    Swal.fire({
+                        title: 'Brisanje oglasa',
+                        text: "Da li zaista želite da obrišete oglas?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#BF0000',
+                        closeOnClickOutside: false,
+                        cancelButtonText:'Ne',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Da'
+                    }).then((result) => {
+                        if(result.value)
+                            window.location.href = "http://localhost:8080/Korisnik/ukloniOglas/"+id;
+                    })
+                },
+                error: function(data){
+                    Swal.fire({
+                        'title': 'Errors',
+                        'text': 'There were errors while saving the data.',
+                        'type': 'error'
+                    })
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+<div id="mainUser">
+     
+     
+  
+            
+                <img src="/images/avatar.png">
+                <br>
+                <p align="left">[<?php  echo $uloga->Opis ?>]<?php  echo $user->KorIme ?></p> 
+
+                <ul>
+                    <?php
+                         if($user->Opis=='Admin')
+                             {?>
+
+                                 <a href="<?php echo site_url('Admin/adminMode');?>"> <li>Admin</li></a>
+                            <?php }?>
+                  <a href="<?php echo site_url('Korisnik/urediProfil');?>"> <li>Uredi profil</li></a> 
+                  <a href="<?php echo site_url('Korisnik/urediProfil');?>"><li>Uklanjanje naloga</li></a>
+                  <a href="<?php echo site_url('Korisnik/logout');?>"><li>Izloguj se</li></a>
+                </ul>
+           
+        </div>
+
+        <div id="side">
+           <h2>Informacije o korisniku</h2>
+           <ul>
+               <li>Ime: <label><?php  echo $user->Ime ?></label></li>
+               <li>Prezime: <label><?php  echo $user->Prezime ?></label></li>
+               <li>Email: <label><?php  echo $user->Email ?></label></li>
+               <li>Broj telefona: <label><?php  echo $user->Telefon ?></label></li>
+               <li>Država: <label><?php  echo $user->Drzava ?></label></li>
+               <li>Grad: <label><?php  echo $user->Grad ?></label></li>
+               <li>Adresa: <label><?php  echo $user->Adresa ?></label></li>
+
+           </ul>
+
+
+        </div>
+        <div class="side2">
+            <h2> Podaci o oglasima</h2>
+                <table>
+                    <tr>
+                        <th>Redni br</th>
+                        <th>Naziv oglasa</th>
+                        <th>Uredi</th>
+                        <th>Izbrisi</th>
+                    </tr>
+                 <?php
+                 $i = 0;
+                foreach ($news as $vest) {
+                    $i++;
+                    echo "<tr><td>{$i}</td>";
+                    echo "<td>{$vest->Naziv}</td>";
+                    echo '<td class ="uredi"><a href="'. site_url("Korisnik/izmeniOglas/$vest->IdD").'"><i class="fa fa-edit" style="font-size:20px"></i></a></td>';
+                    echo '<td class ="obrisi">';
+                    echo "<a href='#' class='delete' id='{$vest->IdD}'>";
+                    echo '<i class="fa fa-trash-o" style="font-size:20px"></i></a></td>';
+                    
+                    
+                }
+                ?>
+
+                    </table>
+
+        </div>
+    
+       
+    
