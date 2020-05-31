@@ -5,9 +5,18 @@
 
        </div><!-- kraj deo 1 -->
 
+       <div class="clearfix">
+       <div class="dugmici">
+           <a href="<?php echo site_url("Admin/adminMode");?>">
+               <button id="dugmeZaKorisnike" formaction=""class="button" style="background-color:#4CAF50;"><span>Korisnici </span></button>
+           </a>
+           <a href="<?php echo site_url('Admin/adminOglasi');?>">
+               <button id="dugmeZaOglase" formaction=""class="button" style="background-color:#4CAF50;"><span>Oglasi </span></button>
+           </a>
+       </div>
 
-       <div class ="pretrazi" align="center">
-           <form method="post">
+       <div class ="pretrazi">
+           <form method="post" id="formItem">
                <label>Pretrazi korisnike:</label><br>
                <tr>
                    <td>  <input type="text" name="pretraziKorisnike" class = "searchText"placeholder="Unesite tekst za pretragu"></td>
@@ -16,33 +25,41 @@
 
            </form>
        </div>
-       <ul>
-           <a href="<?php echo site_url("Admin/adminMode");?>"><li> Korisnici</li></a>
-           <a href="<?php echo site_url('Admin/adminOglasi');?>"><li> Oglasi</li></a>
-       </ul>
-        <div class="grid-container">
+       </div>
 
-            <div class="grid-item"><span><b>Korisničko ime</b></span></div>
-            <div class="grid-item"><span><b>Uloga</b></span></div>
-            <div class="grid-item"><span><b>Selektovan</b></span> </div>
+<div id="adminMain">
+        <table id="adminTabela">
+            <tr>
+                <th><span><b>Korisničko ime</b></span></th>
+                <th><span><b>Uloga</b></span></th>
+                <th><span><b>Selektovan</b></span></th>
+            </tr>
+
             <?php
             foreach ($data['news'] as $user)
             {?>
-                <div class="grid-item"><?php echo $user->KorIme ?> </div>
-                <div class="grid-item"><?php echo $user->Opis ?> </div>
-                <div class="grid-item"><input type="checkbox" value="<?php echo $user->KorIme;?>" name="user"></div>
-         <?php   }?>
+                 <tr><td><?php echo $user->KorIme ?> </td>
+                 <td><?php echo $user->Opis ?> </td>
+                 <td><input type="checkbox" value="<?php echo $user->KorIme;?>" name="user"></td></tr>
+            <?php   }?>
 
+            <tr>
+                <td>
+                    <button id="add" class="dugme">Dodaj moderatora</button>
+                </td>
+                <td>
+                    <button id="delete" class="dugme" style="background-color:#31708f;">Oduzmi moderatora</button>
+                </td>
+                <td>
+                    <button id="block" class="dugme" style="background-color:#BF0000;">Ukloni</button>
+                </td>
+            </tr>
 
+        </table>
 
-
-            <div class="grid-item"><button id="add" class="dugme">Dodaj moderatora</button> </div>
-            <div class="grid-item"><button id="delete" class="dugme" style="background-color:#31708f;">Oduzmi moderatora</button></div>
-            <div class="grid-item"><button id="block" class="dugme" style="background-color:#BF0000;">Ukloni</button></div>
-          </div>
 
        <?= $data['pager']->links() ?>
-
+   </div>
 </div>
     
     <!-- kraj wrap-->

@@ -21,14 +21,14 @@ class News extends Model
     }
     
    
-      public function pretraga(int $perPage, string $ime)
+      public function pretraga(int $perPage, string $ime="")
       {
           
           $pager = \Config\Services::pager(null, null, false);
           $page = $pager->getCurrentPage('default');
           
             $query = $this->where('Tip','M')->like('Naziv', $ime)
-            ->orLike('Opis', $ime);
+            ->orLike('Opis', $ime)->where('Tip','M');
           
           
           $total = $query->countAllResults(false);
@@ -51,12 +51,41 @@ class News extends Model
           $this->pager = $pager->store('default', $page, $perPage, $total, 0);
           $offset = ($page - 1) * $perPage;
           
-          return $query->findAll($perPage, $offset);
+          return $query->orderBy('Status','DESC')->findAll($perPage, $offset);       
+      }
+      
+        public function manifestacije(int $perPage) {
           
-         
+          $pager = \Config\Services::pager(null, null, false);
+          $page = $pager->getCurrentPage('default');
+          
+          $query = $this->where('Tip','M');//->where('Status','O');
           
           
+          $total = $query->countAllResults(false);
+          $this->pager = $pager->store('default', $page, $perPage, $total, 0);
+          $offset = ($page - 1) * $perPage;
           
+          return $query->findAll($perPage, $offset);       
+      }
+      
+      
+           public function pretragaOglasa(int $perPage, string $ime="")
+      {
+          
+           $pager = \Config\Services::pager(null, null, false);
+          $page = $pager->getCurrentPage('default');
+          
+            $query = $this->where('Tip','O')->like('Naziv', $ime)
+                    ->orLike('Opis', $ime)->where('Tip','O');
+          
+          
+          $total = $query->countAllResults(false);
+          $this->pager = $pager->store('default', $page, $perPage, $total, 0);
+          $offset = ($page - 1) * $perPage;
+          
+          return $query->orderBy('Status','DESC')->findAll($perPage, $offset);
+  
       }
       
     

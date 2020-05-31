@@ -53,11 +53,12 @@ class BaseController extends Controller
     {
         $this->method = 'index';
         $newsDB = new News();
+        $news = $newsDB->manifestacije(5);
         $data = [
-            'news' => $newsDB->paginate(5),
+            'news' => $news,
             'pager' => $newsDB->pager
         ];
-        $news = $newsDB->where('tip','M')->findAll();
+        
         $this->prikaz("index", ['data'=>$data,'news'=>$news, 'method'=>$this->method]);
     }
 
@@ -77,25 +78,7 @@ class BaseController extends Controller
     
     //Dzoni'o
     
-     public function userInfo()
-    {
-        $newsDB = new News();
-        $korime = $this->session->get('user')->KorIme;
-        $news = $newsDB->where('korime',$korime)->findAll();
-        $this->method='userInfo';
-
-        $db= \Config\Database::connect();
-        $builder = $db->table('Ima_ulogu');
-        $builder->select('*')
-            ->join('Korisnik', 'Korisnik.KorIme=Ima_ulogu.KorIme', 'left')
-            ->join('Uloga', 'Uloga.Idu=Ima_ulogu.Idu', 'left')
-            ->where('Korisnik.KorIme',$korime);
-        $uloga = $builder->get();
-
-
-        $this->prikaz('user',['method'=>$this->method, 'news'=>$news, 'uloga'=>$uloga->getFirstRow()]);
-
-    }
+  
     public function oglasi()
     {
         $newsDB = new News();
@@ -124,12 +107,12 @@ class BaseController extends Controller
     {
         if(!isset($_SESSION['korpa'][$iddog]))
         {
-            echo "dodato";
+            echo 1;
             $_SESSION['korpa'][$iddog] = 1;
         }
         else
         {
-            echo "postoji";
+            echo 0;
         }
 
     }

@@ -1,4 +1,5 @@
 <!-- Page Content -->
+<script type=text/javascript src="/script/kartica.js"></script>
 
 
 
@@ -11,43 +12,14 @@
 
     <div class="row">
         <h1 align="center">Plaćanje</h1>
-
-        <!--div class="col-xs-4 pull-right ">
-            <h2>Ukupan iznos</h2>
-
-            <table class="table table-bordered" cellspacing="0">
-
-
-                <tr class="order-total">
-                    <th>Suma korpe:</th>
-                    <td><strong><span class="amount" id="suma">
-                                <?php/*
-                                $suma = 0;
-                                foreach ($news as $vest) {
-                                    $kolicina = $_SESSION['korpa'][$vest->IdD];
-                                    $cena = $kolicina * $vest->Cena;
-                                    $suma += $cena;
-                                }
-                                echo $suma;*/
-
-                                ?>
-
-
-
-                    </span></strong> </td>
-                </tr>
-
-
-                </tbody>
-
-            </table>
-
-        </div-->
-        <form action="<?= site_url("Korisnik/kupi") ?>"" method="post">
+        <form action="  <?php  if(isset($_SESSION['user']))
+              echo site_url($opis."/kupi");
+        else  echo site_url("Gost/login");
+        ?>" method="post">
 
         <ul class="form-style-2 table-responsive">
             <li>
-            <table>
+            <table id="tableKorpa">
                 <thead>
                 <tr>
                     <th>Slika</th>
@@ -75,9 +47,9 @@
                     $product = <<<DEL
 
                         <tr id="$vest->IdD">
-                          <td> <img alt="computer" src='data:image/jpeg;base64,$slika' width="160em" height="90em"/></td>
-                          <td>{$vest->Naziv}</td>
-                          <td id = "kol$vest->IdD">{$kolicina} </td>
+                          <td> <img class= "slikaKorpa"alt="computer" src='data:image/jpeg;base64,$slika' width="160em" height="90em"/></td>
+                          <td class="nazivKorpa">{$vest->Naziv}</td>
+                          <td class="ko" id = "kol$vest->IdD">{$kolicina} </td>
                           <td id = "cena$vest->IdD">{$cena}</td>
                           <td>
                               <button type="button" class="dugmecart" link = '$linkinc' kol = '$kolicina' cena = '$vest->Cena' iddog = '$vest->IdD' opt = '0'>+</button>
@@ -103,7 +75,7 @@ DEL;
                                     $cena = $kolicina * $vest->Cena;
                                     $suma += $cena;
                                 }
-                                echo "<h2>Ukupan iznos: <span id = 'suma'>$suma</span></h2>";
+                                echo "<h2>Ukupan iznos: <span id = 'suma'>$suma</span> dinara</h2>";
 
                         ?>
 
@@ -123,27 +95,26 @@ DEL;
         </ul>
                 <ul class="form-style-1">
 
-            <li>
-                <label>Broj kartice<span class="required">*</span></label>
-                <input type="text" name="brkartice" class="field-long" />
-            </li>
+                    <li>
+                        <label>Broj kartice<span class="required">*</span></label>
+                        <input type="text" id="brkartice" name="brkartice" class="field-long" />
+                    </li>
+                    <li>
+                        <label>Broj isteka važenja kartice (mesec/godina)<span class="required">*</span></label>
+                        <input type="text" id="kartmesec" name="mesec" class="field-divided" placeholder="Mesec" />
+                        <input type="text" id="kartgod" name="god" class="field-divided" placeholder="Godina" />
+                    </li>
+                    <li>
+                        <label>CVC/CVV2 kod<span class="required">*</span></label>
+                        <input type="text" id="kartcvc" name="cvc" class="field-long" />
+                    </li>
 
-            <li>
-                <label>Broj isteka važenja kartice (mesec/godina)<span class="required">*</span></label>
-                <input type="text" name="mesec" class="field-divided" placeholder="Mesec" />
-                <input type="text" name="god" class="field-divided" placeholder="Godina" />
-            </li>
+                    <li>
+                        <div id="kart_error">GREŠKA PRI UNOSU PODATAKA</div>
+                        <input id = "<?php  if(isset($_SESSION['user']))  echo"kupi";  else  echo ""?>"  type="submit" name="submit">
+                    </li>
 
-            <li>
-                <label>CVC/CVV2 kod<span class="required">*</span></label>
-                <input type="text" name="cvc" class="field-long" />
-            </li>
-
-
-            <li>
-            <input id = "kupi" type="submit" name="submit">
-            </li>
-        </ul>
+                </ul>
         </form>
 
 

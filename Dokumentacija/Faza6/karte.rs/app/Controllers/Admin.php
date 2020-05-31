@@ -5,7 +5,7 @@ use App\Models\News;
 use App\Models\Role;
 use App\Models\Roles;
 
-class Admin extends BaseController{
+class Admin extends Moderator{
 
     protected function prikaz($page, $data)
     {
@@ -16,17 +16,29 @@ class Admin extends BaseController{
         echo view("Prototip/footer", $data);
 
     }
-
-
-    public function logout()
+    
+     public function pretragaOglasa()
     {
-        $this->session->destroy();
-        return redirect()->to(site_url('/'));
+        $ime = $this->request->getVar('pretraziKorisnike');
+        $this->method = 'dodajOglas';
+        if($ime==null)
+            $ime="";
+        $newsDB = new News();
+        $news = $newsDB->pretragaOglasa(5,$ime);
+        $data = [
+            'news' => $news,
+            'pager' => $newsDB->pager
+        ];
+
+        $this->prikaz("adminOglasi", ['data'=>$data,'method' =>  $this->method ,'admin'=>  $korime = $this->session->get('user')->KorIme, 'oglasi'=>$news]);
     }
+    
 
     public function pretragaKorisnika()
     {
         $ime = $this->request->getVar('pretraziKorisnike');
+        if($ime==null)
+            $ime="";
 
          
             $userDB = new User();
@@ -66,48 +78,19 @@ class Admin extends BaseController{
     {
         $this->method = 'dodajOglas';
         $newsDB = new News();
+        $news = $newsDB->oglasi(5);
         $data = [
-            'news' => $newsDB->paginate(5),
+            'news' => $news,
             'pager' => $newsDB->pager
         ];
 
-        $news = $newsDB->where("Tip" , "O")->findAll();
+        //$news = $newsDB->where("Tip" , "O")->findAll();
         $this->prikaz("adminOglasi", ['data'=>$data,'method' =>  $this->method ,'admin'=>  $korime = $this->session->get('user')->KorIme, 'oglasi'=>$news]);
 
 
     }
-    public function obrisiOglas()
-    {
-        $oglasi = $_POST['favorite'];
-        $newsDB = new News();
-        foreach ($oglasi as $oglas)
-        {
-            $newsDB->where("IdD", $oglas)->delete();
-        }
-        $response['favorite'] = $oglasi;
-
-        echo json_encode($response);
-
-    }
-    public function promeniStatus()
-    {
-        $oglasi = $_POST['favorite'];
-        $newsDB = new News();
-        foreach ($oglasi as $oglas)
-        {
-            $newsDB->where("IdD", $oglas);
-            $newsDB->set(
-                [
-                    "status"=>"A"
-                ]
-            );
-            $newsDB->update();
-        }
-        $response['favorite'] = $oglasi;
-
-        echo json_encode($response);
-
-    }
+  
+   
     public function dodajModeratora()
     {
         $site = $_POST['favorite'];
@@ -154,8 +137,8 @@ class Admin extends BaseController{
         foreach ($site as $moderator) {
             $role->where("KorIme", $moderator)->delete();
             $news->where("KorIme", $moderator)->delete();
-            $role->where("KorIme", $moderator)->delete();
-
+             /*$user*/$role->where("KorIme", $moderator)->delete();
+            //Brisanje transakcija korisnika ili setovanje NULL-ova u bazi :D
         }
         //$this->session->set_userdata('site', $site);
         $response['favorite'] = $site;

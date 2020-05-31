@@ -6,8 +6,10 @@
     //onClick=\"javascript: return confirm('Da li zaista želite da uklonite oglas?');\"
     //href='".site_url("Korisnik/ukloniOglas/$vest->IdD")."'
     $(document).ready(function(){
-        $(".delete").click(function() {
+        $(".delete").click(function(e) {
+            e.preventDefault();
             var id = $(this).attr('id');
+            var href = $(this).attr('href');
             $.ajax({
                 success: function(data){
                      
@@ -24,7 +26,7 @@
                         confirmButtonText: 'Da'
                     }).then((result) => {
                         if(result.value)
-                            window.location.href = "http://localhost:8080/Korisnik/ukloniOglas/"+id;
+                            window.location.href = "" + href + "/" + id;
                     })
                 },
                 error: function(data){
@@ -39,6 +41,53 @@
     });
 </script>
 
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#izbrisi").click(function(e) {
+            e.preventDefault();
+            var href = $(this).attr('href');
+            $.ajax({
+                success: function (data) {
+                   
+
+                    Swal.fire({
+                        title: 'Uklanjanje naloga',
+                        text: "Da li zaista želite da obrišete oglas?",           
+                        html:
+                                '<p>Unesite lozinku kao potvrdu o brisanju naloga</p><input id="swal-input1" class="swal2-input" placeholder="Lozinka">' +
+                                '<input id="swal-input2" class="swal2-input" placeholder="Ponovite lozinku">',
+                        preConfirm: function () {
+                            alert("SOmething");
+                            /*return new Promise(function (resolve) {
+                                resolve([
+                                    $('#swal-input1').val(),
+                                    $('#swal-input2').val()
+                                ])
+                            })*/
+        
+                            return window.location.href = ""+ href + "/" + $('#swal-input1').val() + "/" + $('#swal-input2').val();
+                       
+                            
+                        },
+                        onOpen: function () {
+                            $('#swal-input1').focus()
+                        }
+                    }).then(function (result) {
+                        Swal(JSON.stringify(result))
+                    }).catch(swal.noop)
+                },
+                error: function (data) {
+                    Swal.fire({
+                        'title': 'Errors',
+                        'text': 'There were errors while saving the data.',
+                        'type': 'error'
+                    })
+                }
+            });
+        });
+    });
+</script>
 
 
 
@@ -57,10 +106,15 @@
                              {?>
 
                                  <a href="<?php echo site_url('Admin/adminMode');?>"> <li>Admin</li></a>
+                            <?php }else if($user->Opis=='Moderator'){?>
+                                  <a href="<?php echo site_url('Moderator/moderatorMode');?>"> <li>Moderator</li></a>
                             <?php }?>
-                  <a href="<?php echo site_url('Korisnik/urediProfil');?>"> <li>Uredi profil</li></a> 
-                  <a href="<?php echo site_url('Korisnik/urediProfil');?>"><li>Uklanjanje naloga</li></a>
-                  <a href="<?php echo site_url('Korisnik/logout');?>"><li>Izloguj se</li></a>
+                                 
+                                 
+                               
+                  <a href="<?php echo site_url($user->Opis.'/urediProfil');?>"> <li>Uredi profil</li></a> 
+                  <a id="izbrisi" href="<?php echo site_url($user->Opis.'/izbrisiKorisnika');?>"><li>Uklanjanje naloga</li></a>
+                  <a href="<?php echo site_url($user->Opis.'/logout');?>"><li>Izloguj se</li></a>
                 </ul>
            
         </div>
@@ -95,9 +149,10 @@
                     $i++;
                     echo "<tr><td>{$i}</td>";
                     echo "<td>{$vest->Naziv}</td>";
-                    echo '<td class ="uredi"><a href="'. site_url("Korisnik/izmeniOglas/$vest->IdD").'"><i class="fa fa-edit" style="font-size:20px"></i></a></td>';
+                    echo '<td class ="uredi"><a href="'. site_url($user->Opis."/izmeniOglas/$vest->IdD").'"><i class="fa fa-edit" style="font-size:20px"></i></a></td>';
                     echo '<td class ="obrisi">';
-                    echo "<a href='#' class='delete' id='{$vest->IdD}'>";
+                    echo "<a href='". site_url($user->Opis.'/ukloniOglas') ."'";
+                    echo "class='delete' id='{$vest->IdD}'>";
                     echo '<i class="fa fa-trash-o" style="font-size:20px"></i></a></td>';
                     
                     

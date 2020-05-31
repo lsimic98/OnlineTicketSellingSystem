@@ -5,32 +5,55 @@ use App\Models\News;
 use App\Models\Role;
 use App\Models\Roles;
 
-class Moderator extends BaseController{
+class Moderator extends Korisnik{
 
     protected function prikaz($page, $data)
     {
-        $data['controller']='Admin';
+        $data['controller']='Moderator';
         $data['user']=$this->session->get('user');
-        echo view('Prototip/header_admin', $data);
+        echo view('Prototip/header_moderator', $data);
         echo view("Prototip/$page", $data);
         echo view("Prototip/footer", $data);
 
     }
-
-
-    public function logout()
+    
+    public function moderatorMode()
     {
-        $this->session->destroy();
-        return redirect()->to(site_url('/'));
-    }
+        $this->method = 'dodajOglas';
+        $newsDB = new News();
+        $news = $newsDB->oglasi(5);
+        $data = [
+            'news' => $news,
+            'pager' => $newsDB->pager
+        ];
 
-    public function pretragaKorisnika()
+        $this->prikaz("moderatorOglasi", ['data'=>$data,'method' =>  $this->method ,'admin'=>  $korime = $this->session->get('user')->KorIme, 'oglasi'=>$news]);
+
+
+    }
+    
+     public function pretragaOglasa()
     {
         $ime = $this->request->getVar('pretraziKorisnike');
+        if($ime==null)
+            $ime="";
+        $this->method = 'dodajOglas';
+        $newsDB = new News();
+        $news = $newsDB->pretragaOglasa(5,$ime);
+        $data = [
+            'news' => $news,
+            'pager' => $newsDB->pager
+        ];
+
+        $this->prikaz("moderatorOglasi", ['data'=>$data,'method' =>  $this->method ,'admin'=>  $korime = $this->session->get('user')->KorIme, 'oglasi'=>$news]);
+
+        
+        /*
+             $ime = $this->request->getVar('pretraziKorisnike');
 
          
             $userDB = new User();
-            $uloga = $userDB->paginateUsers(10, $ime);
+            $uloga = $userDB->paginateUsers(5, $ime);
         
             $data = [
                 'news' => $uloga,
@@ -38,44 +61,148 @@ class Moderator extends BaseController{
             ];
 
         $this->prikaz("adminMode", ['data'=>$data,'method' =>  $this->method ,'admin'=>  $korime = $this->session->get('user')->KorIme, 'korisnici'=>$uloga]);
+         
+         *          */
 
     }
-    public function adminMode()
+    
+    
+    //
+        public function ukloniOglas($idOglas)
     {
-        $this->method = 'dodajOglas';
-        $userDB = new User();
-        /*$db= \Config\Database::connect();
-        $builder = $db->table('Ima_ulogu');
-        $builder->select('*')
-            ->join('Korisnik', 'Korisnik.KorIme=Ima_ulogu.KorIme', 'left')
-            ->join('Uloga', 'Uloga.Idu=Ima_ulogu.Idu', 'left')
-            ->where('Uloga.Opis',"Korisnik")->orWhere("Uloga.Opis" , "Moderator");
-        $uloga = $builder->get()->getResult();
-        $newsDB = new News();*/
-        $uloga = $userDB->paginateUsers(10);
+            $korime = $this->session->get('user')->KorIme;
+            $newsDB = new News();
+            $newsDB->where('IdD',$idOglas)->where('KorIme',$korime)->delete();
+            return redirect()->to(site_url('Moderator/userInfo'));
+                   
         
-        $data = [
-            'news' => $uloga,
-            'pager' => $userDB->pager
-        ];
-
-        $this->prikaz("adminMode", ['data'=>$data,'method' =>  $this->method ,'admin'=>  $korime = $this->session->get('user')->KorIme, 'korisnici'=>$uloga]);
     }
-
-    public function adminOglasi()
+    
+    public function izmeniOglas($idOglas)    //Moderator i Admin mogu da edituju i brisu sve oglase
     {
-        $this->method = 'dodajOglas';
-        $newsDB = new News();
-        $data = [
-            'news' => $newsDB->paginate(10),
-            'pager' => $newsDB->pager
-        ];
+        
+        $naslov = 'Izmena oglasa';
+        $korime = $this->session->get('user')->KorIme;
 
-        $news = $newsDB->where("Tip" , "O")->findAll();
-        $this->prikaz("adminOglasi", ['data'=>$data,'method' =>  $this->method ,'admin'=>  $korime = $this->session->get('user')->KorIme, 'oglasi'=>$news]);
-
-
+            $newsDB = new News();
+            $news = $newsDB->where('KorIme',$korime)->where('IdD',$idOglas)->find();
+            if($news!=null)
+            {
+                $this->method='dodajOglas';
+                $this->prikaz('dodajOglas',['method'=>$this->method, 'news'=>$news, 'naslov'=>$naslov]);
+            }
+            else
+            {
+                return redirect()->to(site_url('Moderator/userInfo'));
+            }        
+        
     }
+    
+        
+    public function ubaciOglas()
+    {
+            /*if(!$this->validate(
+            ['ime'=>'required|min_length[1]|max_length[20]',
+            'prezime'=>'required|min_length[1]|max_length[20]',
+            'korime'=>'trim|required|min_length[1]|max_length[15]',
+            'email'=>'trim|required|min_length[1]|max_length[50]',
+            'telefon'=>'required|min_length[1]|max_length[15]',
+            'brlk'=>'required|min_length[1]|max_length[9]',
+            'grad'=>'required|min_length[1]|max_length[15]',
+            'adresa'=>'required|min_length[1]|max_length[30]',
+            'drzava' => 'required'
+            ]
+        ))
+       return $this->objaviOglas();*/
+            
+            
+           $slika = file_get_contents($_FILES['slika']['tmp_name']);           
+           $date = $this->request->getVar("datum") ." ". $this->request->getVar("vreme");
+           $date = date_create($date);
+           $date = date_format($date, 'Y-m-d H:i:s');
+           
+  
+            $news = new News();   
+             $news->insert(
+                [
+                    'Naziv'=>$this->request->getVar("naziv"),
+                    'Cena'=>$this->request->getVar("cena"),
+                    'Datum'=>$date,
+                    'Lokacija'=>$this->request->getVar("lokacija"),
+                    'Slika'=> $slika,
+                    'Tip'=>"O",
+                    'BrojKarata'=>$this->request->getVar("brojkarata"),
+                    'KorIme'=>$this->session->get('user')->KorIme,
+                    'Status'=>"N"
+                ]
+                );
+             
+             
+             return redirect()->to(site_url('Moderator/userInfo'));
+           
+             
+        }
+    
+    public function azurirajOglas($IdD) 
+    {
+
+        
+        
+        $news = new News();
+        $date = $this->request->getVar("datum") ." ". $this->request->getVar("vreme");
+        $date = date_create($date);
+        $date = date_format($date, 'Y-m-d H:i:s');
+        
+        if($_FILES['slika']['tmp_name']!=null)
+        {
+            $slika = file_get_contents($_FILES['slika']['tmp_name']);  
+            $news->where('IdD',$IdD);
+            $news->set(
+                [
+                    
+                    'Naziv'=>$this->request->getVar("naziv"),
+                    'Cena'=>$this->request->getVar("cena"),
+                    'Datum'=>$date,
+                    'Lokacija'=>$this->request->getVar("lokacija"),
+                    'Slika' => $slika,
+                    'Tip'=>"O",
+                    'BrojKarata'=>$this->request->getVar("brojkarata"),
+                    'KorIme'=>$this->session->get('user')->KorIme,
+                    'Status'=>"N"
+                ]
+            );
+            $news->update();
+        }
+        else 
+        {
+            $news->where('IdD',$IdD);
+            $news->set(
+                [
+                    
+                    'Naziv'=>$this->request->getVar("naziv"),
+                    'Cena'=>$this->request->getVar("cena"),
+                    'Datum'=>$date,
+                    'Lokacija'=>$this->request->getVar("lokacija"),
+                    'Tip'=>"O",
+                    'BrojKarata'=>$this->request->getVar("brojkarata"),
+                    'KorIme'=>$this->session->get('user')->KorIme,
+                    'Status'=>"N"
+                ]
+            );
+            $news->update();
+            
+            
+        }
+             
+             
+             return redirect()->to(site_url('Moderator/userInfo'));
+        
+        
+    }
+    
+    
+    //
+    
     public function obrisiOglas()
     {
         $oglasi = $_POST['favorite'];
@@ -91,6 +218,7 @@ class Moderator extends BaseController{
     }
     public function promeniStatus()
     {
+        echo var_dump($_POST['favorite']);
         $oglasi = $_POST['favorite'];
         $newsDB = new News();
         foreach ($oglasi as $oglas)
@@ -98,7 +226,7 @@ class Moderator extends BaseController{
             $newsDB->where("IdD", $oglas);
             $newsDB->set(
                 [
-                    "status"=>"A"
+                    "Status"=>"A"
                 ]
             );
             $newsDB->update();
@@ -106,46 +234,13 @@ class Moderator extends BaseController{
         $response['favorite'] = $oglasi;
 
         echo json_encode($response);
+        
+       
 
     }
-    public function dodajModeratora()
-    {
-        $site = $_POST['favorite'];
-        $role = new Role();
-        foreach ($site as $moderator) {
-            $role->where("KorIme", $moderator);
-            $role->set(
-                [
-                    "Idu"=>2
-                ]
-            );
-               $role->update();
-               }
-        //$this->session->set_userdata('site', $site);
-        $response['favorite'] = $site;
+    
 
-        echo json_encode($response);
-    }
-    public function oduzmiModeratora()
-    {
-        $site = $_POST['favorite'];
-        $role = new Role();
-        foreach ($site as $moderator) {
-            $role->where("KorIme", $moderator);
-            $role->set(
-                [
-                    "Idu"=>3
-                ]
-            );
-            $role->update();
-        }
-        //$this->session->set_userdata('site', $site);
-        $response['favorite'] = $site;
-
-        echo json_encode($response);
-    }
-
-    public function ukloni()
+   /* public function ukloni()
     {
         $site = $_POST['favorite'];
         $role = new Role();
@@ -161,7 +256,7 @@ class Moderator extends BaseController{
         $response['favorite'] = $site;
 
         echo json_encode($response);
-    }
+    }*/
 }
 
 ?>

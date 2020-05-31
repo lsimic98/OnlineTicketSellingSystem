@@ -14,6 +14,27 @@ class Korisnik extends BaseController
       echo view("Prototip/footer", $data);
 
     }
+    
+    private function izbrisiKorisnika($lozinka1, $lozinka2) {
+        
+        if($lozinka1==$lozinka2 && $lozinka1==$this->session->get('user')->Sifra){
+        
+        $role = new Role();
+        $user = new User();
+        $news = new News();
+        $korime = $this->session->get('user')->KorIme;
+       
+            $role->where("KorIme", $korime)->delete();
+            $news->where("KorIme", $korime)->delete();
+           /*$user*/ $role->where("KorIme", $korime)->delete();
+           //Brisanje transakcija korisnika ili setovanje NULL-ova u bazi :D
+           $this->logout();
+        }
+        else 
+        {
+           $this->userInfo(); 
+        }
+    }
 
     public function logout()
     {
@@ -31,6 +52,26 @@ class Korisnik extends BaseController
         $this->prikaz('user',['method'=>$this->method, 'news'=>$news, 'uloga'=>$this->session->get('user')->Opis]);
     
     }*/
+    
+       public function userInfo()
+    {
+        $newsDB = new News();
+        $korime = $this->session->get('user')->KorIme;
+        $news = $newsDB->where('korime',$korime)->findAll();
+        $this->method='userInfo';
+
+        $db= \Config\Database::connect();
+        $builder = $db->table('Ima_ulogu');
+        $builder->select('*')
+            ->join('Korisnik', 'Korisnik.KorIme=Ima_ulogu.KorIme', 'left')
+            ->join('Uloga', 'Uloga.Idu=Ima_ulogu.Idu', 'left')
+            ->where('Korisnik.KorIme',$korime);
+        $uloga = $builder->get();
+
+
+        $this->prikaz('user',['method'=>$this->method, 'news'=>$news, 'uloga'=>$uloga->getFirstRow()]);
+
+    }
     
     public function ukloniOglas($idOglas)
     {
@@ -61,7 +102,7 @@ class Korisnik extends BaseController
         if(!$this->validate(
             ['ime'=>'required|min_length[1]|max_length[20]',
             'prezime'=>'required|min_length[1]|max_length[20]',
-            'korime'=>'trim|required|min_length[1]|max_length[15]',
+            //'korime'=>'trim|required|min_length[1]|max_length[15]',
             'email'=>'trim|required|min_length[1]|max_length[50]',
             'telefon'=>'required|min_length[1]|max_length[15]',
             'brlk'=>'required|min_length[1]|max_length[9]',
@@ -71,7 +112,7 @@ class Korisnik extends BaseController
             ]
         )
 
-        ) return $this->prikaz('forma', ['naslov'=>'Uredi profil' ,'errors'=>$this->validator->listErrors(), 'method'=>$this->method, 'korisnik'=>$this->session->get('user')]);
+        ) return $this->prikaz('forma', ['naslov'=>'Uredi profil' ,'errors'=>$this->validator->listErrors() ,'method'=>$this->method, 'korisnik'=>$this->session->get('user')]);
         
             $korisnik=null;
             
@@ -137,7 +178,13 @@ class Korisnik extends BaseController
             else
             {
                  $this->method = 'userInfo';
-                 return $this->prikaz('forma', ['method'=>$this->method, 'naslov'=>'Uredi profil', 'korisnik'=>$this->session->get('user')]);
+                 if($korisnik!=null)
+                     $poruka = "<font color='red' size='5px'>Email je zauzet!</font>";
+                 else if($this->request->getVar("lozinka")!=$this->session->get('user')->Sifra)
+                     $poruka = "<font color='red' size='5px'>Pogrešna stara šifra!</font><br>";
+                 else
+                     $poruka = "<font color='red' size='5px'>Morate uneti novu šifru!</font><br>";
+                 return $this->prikaz('forma', ['method'=>$this->method, 'naslov'=>'Uredi profil', 'korisnik'=>$this->session->get('user'), 'poruka'=>$poruka]);
             }
         }
         
@@ -146,7 +193,7 @@ class Korisnik extends BaseController
         $naslov = 'Objavljivanje oglasa';
         $this->method='dodajOglas';
         $news = null;
-        $this->prikaz('dodajOglas',['method'=>$this->method, 'news'=>$news, 'naslov'=>$naslov]);
+        $this->prikaz('dodajOglas',['method'=>$this->method, 'news'=>$news, 'naslov'=>$naslov , 'opis'=>$this->session->get('user')->Opis]);
           
     }
     
@@ -161,7 +208,7 @@ class Korisnik extends BaseController
             if($news!=null)
             {
                 $this->method='dodajOglas';
-                $this->prikaz('dodajOglas',['method'=>$this->method, 'news'=>$news, 'naslov'=>$naslov]);
+                $this->prikaz('dodajOglas',['method'=>$this->method, 'news'=>$news, 'naslov'=>$naslov, 'opis'=>$this->session->get('user')->Opis]);
             }
             else
             {
@@ -173,22 +220,28 @@ class Korisnik extends BaseController
         
     public function ubaciOglas()
     {
-            /*if(!$this->validate(
-            ['ime'=>'required|min_length[1]|max_length[20]',
-            'prezime'=>'required|min_length[1]|max_length[20]',
-            'korime'=>'trim|required|min_length[1]|max_length[15]',
-            'email'=>'trim|required|min_length[1]|max_length[50]',
-            'telefon'=>'required|min_length[1]|max_length[15]',
-            'brlk'=>'required|min_length[1]|max_length[9]',
-            'grad'=>'required|min_length[1]|max_length[15]',
-            'adresa'=>'required|min_length[1]|max_length[30]',
-            'drzava' => 'required'
+        
+            $this->method='dodajOglas';
+            $news = null;
+            $naslov = 'Objavljivanje oglasa';
+        
+            if(!$this->validate(
+            ['naziv'=>'required',
+            'cena'=>'required',
+            'datum'=>'required',
+            'lokacija'=>'required',
+            'vreme'=>'required',
+            'brojkarata'=>'required',
+            'telefon' => 'required'
             ]
         ))
-       return $this->objaviOglas();*/
+       return $this->prikaz('dodajOglas',['method'=>$this->method, 'news'=>$news, 'naslov'=>$naslov]);
             
-            
-           $slika = file_get_contents($_FILES['slika']['tmp_name']);           
+           if($_FILES['slika']['tmp_name']!="") 
+            $slika = file_get_contents($_FILES['slika']['tmp_name']);
+        else {
+            return $this->prikaz('dodajOglas',['method'=>$this->method, 'news'=>$news, 'naslov'=>$naslov]);
+        }
            $date = $this->request->getVar("datum") ." ". $this->request->getVar("vreme");
            $date = date_create($date);
            $date = date_format($date, 'Y-m-d H:i:s');
@@ -205,7 +258,8 @@ class Korisnik extends BaseController
                     'Tip'=>"O",
                     'BrojKarata'=>$this->request->getVar("brojkarata"),
                     'KorIme'=>$this->session->get('user')->KorIme,
-                    'Status'=>"N"
+                    'Status'=>"N",
+                    'Telefon' => $this->request->getVar("telefon")
                 ]
                 );
              
@@ -240,7 +294,8 @@ class Korisnik extends BaseController
                     'Tip'=>"O",
                     'BrojKarata'=>$this->request->getVar("brojkarata"),
                     'KorIme'=>$this->session->get('user')->KorIme,
-                    'Status'=>"N"
+                    'Status'=>"N",
+                    'Telefon'=>$this->request->getVar("telefon")
                 ]
             );
             $news->update();
@@ -258,7 +313,9 @@ class Korisnik extends BaseController
                     'Tip'=>"O",
                     'BrojKarata'=>$this->request->getVar("brojkarata"),
                     'KorIme'=>$this->session->get('user')->KorIme,
-                    'Status'=>"N"
+                    'Status'=>"N",
+                    'Telefon'=>$this->request->getVar("telefon")
+                    
                 ]
             );
             $news->update();
@@ -283,8 +340,6 @@ class Korisnik extends BaseController
     
     public function kupi()
     {
-
-
         if (isset($_SESSION['korpa']) && count($_SESSION['korpa']) > 0 && $this->validate(['brkartice'=>'required' , 'mesec'=>'required' , 'god'=>'required' ,  'cvc'=>'required']))
         {
             $newsDB = new News();
@@ -333,16 +388,30 @@ class Korisnik extends BaseController
                 ]
 
             );
-            
-            $this->korpa();
-            //$this->prikaz("index", []);
+            unset($_SESSION['korpa']);
 
+            $this->index();
+            //$this->prikaz("index", []);
         }
         else
-            return $this->prikaz('korpa' ,['errors'=>"greska"]);
+            return $this->korpa();
     }
      
       
+     public function korpa()
+    {
+        $method = 'korpa';
+        $newsDB = new News();
+        $iddog = [];
+        $news = [];
+        if(isset($_SESSION['korpa'])) {
+            foreach ($_SESSION['korpa'] as $key => $value) {
+                array_push($iddog, $key);
+            }
+            if(count($iddog) > 0){$news = $newsDB->findid($iddog);}
+        }
+        $this->prikaz("korpa", ['news'=>$news, 'method'=>$method, 'opis'=>$this->session->get('user')->Opis, 'method'=>'korpa']);
+    }
 
 
 

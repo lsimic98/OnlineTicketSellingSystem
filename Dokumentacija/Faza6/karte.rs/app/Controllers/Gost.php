@@ -10,6 +10,7 @@ class Gost extends BaseController
         $data['controller']='Gost';
         echo view('Prototip/header_gost',$data);
          echo view("Prototip/$page", $data);
+         echo view("Prototip/footer", $data);
 
     }
 
@@ -83,14 +84,14 @@ class Gost extends BaseController
             }
             else
             {
-                 return $this->forma('Email je zauzet!');
+                 return $this->forma("<font color='red' size='5px'>Email je zauzet!</font><br>");
             }
         }
         else
         {
-            return $this->forma('Korisnicko ime je zauzeto!');
+            return $this->forma("<font color='red' size='5px'>Korisničko ime je zauzeto!</font><br>");
         }
-        return $this->forma('Uspesno ste se registrovali :)');
+        return $this->forma("<font color='red' size='5px'>Uspešno ste se registrovali :D</font><br>");
 
 
 
@@ -125,7 +126,7 @@ public function loginSubmit()
         switch ($user->Opis)
         {
             case 'Admin': return redirect()->to(site_url('Admin')); break;
-            case 'Moderator': return redirect()->to(site_url('Korisnik')); break;
+            case 'Moderator': return redirect()->to(site_url('Moderator')); break;
             case 'Korisnik':  return redirect()->to(site_url('Korisnik')); break;
         }
      
