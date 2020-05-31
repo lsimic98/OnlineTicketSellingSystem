@@ -31,7 +31,11 @@ class Moderator extends Korisnik{
 
 
     }
-    
+     /**
+     * Funkcija za pretragu registrovanih korsinika
+     *
+     * @return void
+     */
      public function pretragaOglasa()
     {
         $ime = $this->request->getVar('pretraziKorisnike');
@@ -47,27 +51,15 @@ class Moderator extends Korisnik{
 
         $this->prikaz("moderatorOglasi", ['data'=>$data,'method' =>  $this->method ,'admin'=>  $korime = $this->session->get('user')->KorIme, 'oglasi'=>$news]);
 
-        
-        /*
-             $ime = $this->request->getVar('pretraziKorisnike');
-
-         
-            $userDB = new User();
-            $uloga = $userDB->paginateUsers(5, $ime);
-        
-            $data = [
-                'news' => $uloga,
-                'pager' => $userDB->pager
-            ];
-
-        $this->prikaz("adminMode", ['data'=>$data,'method' =>  $this->method ,'admin'=>  $korime = $this->session->get('user')->KorIme, 'korisnici'=>$uloga]);
-         
-         *          */
-
     }
     
     
-    //
+        /**
+     * Funkcija za oglasa iz baze
+     *
+	 * @param id $idOglas  Oglas se dohvata uz pomoc parametra funkcije
+     * @return void
+     */
         public function ukloniOglas($idOglas)
     {
             $korime = $this->session->get('user')->KorIme;
@@ -77,7 +69,13 @@ class Moderator extends Korisnik{
                    
         
     }
-    
+	
+    /**
+     * Funkcija za prikaz odredjenog oglasa iz baze
+     *
+	 * @param id $idOglas  Oglas se dohvata uz pomoc parametra funkcije
+     * @return void
+     */
     public function izmeniOglas($idOglas)    //Moderator i Admin mogu da edituju i brisu sve oglase
     {
         
@@ -97,25 +95,15 @@ class Moderator extends Korisnik{
             }        
         
     }
-    
+        /**
+     * Funkcija za dodavanje oglasa u bazi
+     *
+	 * 
+     * @return void
+     */
         
     public function ubaciOglas()
-    {
-            /*if(!$this->validate(
-            ['ime'=>'required|min_length[1]|max_length[20]',
-            'prezime'=>'required|min_length[1]|max_length[20]',
-            'korime'=>'trim|required|min_length[1]|max_length[15]',
-            'email'=>'trim|required|min_length[1]|max_length[50]',
-            'telefon'=>'required|min_length[1]|max_length[15]',
-            'brlk'=>'required|min_length[1]|max_length[9]',
-            'grad'=>'required|min_length[1]|max_length[15]',
-            'adresa'=>'required|min_length[1]|max_length[30]',
-            'drzava' => 'required'
-            ]
-        ))
-       return $this->objaviOglas();*/
-            
-            
+    {        
            $slika = file_get_contents($_FILES['slika']['tmp_name']);           
            $date = $this->request->getVar("datum") ." ". $this->request->getVar("vreme");
            $date = date_create($date);
@@ -143,11 +131,14 @@ class Moderator extends Korisnik{
              
         }
     
+	 /**
+     * Funkcija za izmenu oglasa u bazi (Update)
+     *
+	 * @param id $idOglas  Oglas se dohvata uz pomoc parametra funkcije
+     * @return void
+     */
     public function azurirajOglas($IdD) 
-    {
-
-        
-        
+    {     
         $news = new News();
         $date = $this->request->getVar("datum") ." ". $this->request->getVar("vreme");
         $date = date_create($date);
@@ -201,7 +192,12 @@ class Moderator extends Korisnik{
     }
     
     
-    //
+     /**
+     * Funkcija za brisanje oglasa iz baze. Poziva se unutar AJAX-a.
+     *
+	 *
+     * @return void
+     */
     
     public function obrisiOglas()
     {
@@ -216,6 +212,12 @@ class Moderator extends Korisnik{
         echo json_encode($response);
 
     }
+	  /**
+     * Funkcija za menjanje statusa oglasa u bazi . Poziva se unutar AJAX-a.
+     *
+	 *
+     * @return void
+     */
     public function promeniStatus()
     {
         echo var_dump($_POST['favorite']);
@@ -238,25 +240,7 @@ class Moderator extends Korisnik{
        
 
     }
-    
-
-   /* public function ukloni()
-    {
-        $site = $_POST['favorite'];
-        $role = new Role();
-        $user = new User();
-        $news = new News();
-        foreach ($site as $moderator) {
-            $role->where("KorIme", $moderator)->delete();
-            $news->where("KorIme", $moderator)->delete();
-            $role->where("KorIme", $moderator)->delete();
-
-        }
-        //$this->session->set_userdata('site', $site);
-        $response['favorite'] = $site;
-
-        echo json_encode($response);
-    }*/
+   
 }
 
 ?>

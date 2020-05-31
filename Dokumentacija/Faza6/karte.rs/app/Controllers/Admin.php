@@ -16,7 +16,12 @@ class Admin extends Moderator{
         echo view("Prototip/footer", $data);
 
     }
-    
+     /**
+     * Funkcija za odjavljivanje korisnika i preusmeravanje index.php stranicu
+     *
+     * @return void
+     *
+     */
      public function pretragaOglasa()
     {
         $ime = $this->request->getVar('pretraziKorisnike');
@@ -33,6 +38,11 @@ class Admin extends Moderator{
         $this->prikaz("adminOglasi", ['data'=>$data,'method' =>  $this->method ,'admin'=>  $korime = $this->session->get('user')->KorIme, 'oglasi'=>$news]);
     }
     
+    /**
+     * Funkcija za pretragu korisnika u bazi
+     *
+     * @return void
+     */
 
     public function pretragaKorisnika()
     {
@@ -52,6 +62,11 @@ class Admin extends Moderator{
         $this->prikaz("adminMode", ['data'=>$data,'method' =>  $this->method ,'admin'=>  $korime = $this->session->get('user')->KorIme, 'korisnici'=>$uloga]);
 
     }
+	 /**
+     * Funkcija koja otvara stranicu na kojoj se vrsi administracija korisnika. Funkciji pristupa samo admin
+     *
+     * @return void
+     */
     public function adminMode()
     {
         $this->method = 'dodajOglas';
@@ -73,7 +88,11 @@ class Admin extends Moderator{
 
         $this->prikaz("adminMode", ['data'=>$data,'method' =>  $this->method ,'admin'=>  $korime = $this->session->get('user')->KorIme, 'korisnici'=>$uloga]);
     }
-
+    /**
+     * Funkcija koja otvara stranicu na kojoj se vrsi administracija oglasa. Funkciji pristupa samo admin
+     *
+     * @return void
+     */
     public function adminOglasi()
     {
         $this->method = 'dodajOglas';
@@ -89,7 +108,11 @@ class Admin extends Moderator{
 
 
     }
-  
+      /**
+     * Funkcija za dodelu statusa moderatora korisniku
+     *
+     * @return void
+     */
    
     public function dodajModeratora()
     {
@@ -109,6 +132,13 @@ class Admin extends Moderator{
 
         echo json_encode($response);
     }
+	
+	 /**
+     * Funkcija za oduzimanje statusa moderatora
+     *
+     * @return void
+     */
+	 
     public function oduzmiModeratora()
     {
         $site = $_POST['favorite'];
@@ -128,6 +158,11 @@ class Admin extends Moderator{
         echo json_encode($response);
     }
 
+    /**
+     * Funkcija za brisanje korisnika  i svih njegovih oglasa iz baze podataka
+     *
+     * @return void
+     */
     public function ukloni()
     {
         $site = $_POST['favorite'];
