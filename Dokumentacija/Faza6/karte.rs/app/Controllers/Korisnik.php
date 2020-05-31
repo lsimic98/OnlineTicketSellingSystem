@@ -29,6 +29,14 @@ class Korisnik extends BaseController
 
     }
     
+	/**
+	* Funkcija koja se poziva kada korisnik zeli da izbrise svoj nalog. Ukoliko se lozinke koje je korisnik uneo poklapaju sa stvarnom lozinkom
+	* korisnika, njegov nalog se brise i on se automatski logoutuje :D
+	*
+	* @param string $lozinka1
+	* @param string $lozinka2
+	* @return void
+	*/
     private function izbrisiKorisnika($lozinka1, $lozinka2) {
         
         if($lozinka1==$lozinka2 && $lozinka1==$this->session->get('user')->Sifra){
@@ -40,7 +48,7 @@ class Korisnik extends BaseController
        
             $role->where("KorIme", $korime)->delete();
             $news->where("KorIme", $korime)->delete();
-           /*$user*/ $role->where("KorIme", $korime)->delete();
+           /**/ /*$role*/$user->where("KorIme", $korime)->delete();
            //Brisanje transakcija korisnika ili setovanje NULL-ova u bazi :D
            $this->logout();
         }
@@ -49,7 +57,11 @@ class Korisnik extends BaseController
            $this->userInfo(); 
         }
     }
-
+	/**
+	* Funkcija koju kontoler poziva za ucitavanje logout stranice 
+	*
+	* @return void
+ 	*/
     public function logout()
     {
         $this->session->destroy();
@@ -67,6 +79,12 @@ class Korisnik extends BaseController
     
     }*/
     
+	
+	/**
+	* Funkcija koju kontoler poziva za ucitavanje stranice za prikaz informacija o korisniku 
+	*
+	* @return void
+ 	*/
        public function userInfo()
     {
         $newsDB = new News();
@@ -87,6 +105,12 @@ class Korisnik extends BaseController
 
     }
     
+	
+	/**
+	* Funkcija koju korisnik poziva za uklanjanje oglasa koji je prethodno objavio 
+	* @param int $idOglas sluzi za identifikaciju oglasa koji brisemo
+	* @return void
+ 	*/
     public function ukloniOglas($idOglas)
     {
             $korime = $this->session->get('user')->KorIme;
@@ -97,6 +121,11 @@ class Korisnik extends BaseController
         
     }
     
+	/**
+	* Funkcija koja otvara stranicu gde korisnik moze da menja svoje informacije (sve osim Korisnickog imena)
+	*
+	* @return void
+ 	*/
     public function urediProfil()
     {
         
@@ -107,6 +136,13 @@ class Korisnik extends BaseController
                      
     }
     
+	
+	/**
+	* Funkcija koja prikuplja podatke sa stranice za editrovanje informacija o korisniku, vrsi njihovu validaciju.
+	* Ukoliko korisnik nije popunio polje "Stara sifra" ili "Nova Sifra" azurirace se podaci ostalih polja u bazi. Ukoliko zeli da promeni sifru, mora
+	* da unese staru i novu sifru.
+	* @return void
+ 	*/
     public function azurirajProfil()
     {
         $nil = null;
@@ -201,6 +237,11 @@ class Korisnik extends BaseController
                  return $this->prikaz('forma', ['method'=>$this->method, 'naslov'=>'Uredi profil', 'korisnik'=>$this->session->get('user'), 'poruka'=>$poruka]);
             }
         }
+		
+	/**
+	* Funkcija koja otvara stranicu za objavljivanje oglasa.
+	* @return void
+ 	*/
         
     public function objaviOglas()
     {
@@ -211,6 +252,12 @@ class Korisnik extends BaseController
           
     }
     
+	/**
+	* Funkcija koja otvara stranicu za editovanje oglasa.
+	* @param int $idOglas Sluzi za identifikaciju oglasa koji zelimo da editujemo
+	* @return void
+ 	*/
+        
     public function izmeniOglas($idOglas)    //Moderator i Admin mogu da edituju i brisu sve oglase
     {
         
@@ -231,7 +278,12 @@ class Korisnik extends BaseController
         
     }
     
-        
+    /**
+	* Funkcija koja uzima podatke sa stranice za objavljvianje oglasa i validira ih. Ukoliko je validacija uspesna oglas se upisuje u bazu, pod statusom da nije odobren i korisnik se vraca
+	* na stranicu gde moze da pogleda njegove objavljene oglase.
+	* Odobrenje vrsi moderator ili admin i tek tad oglas mogu da vide ostli korisnici.
+	* @return void
+ 	*/    
     public function ubaciOglas()
     {
         
@@ -283,6 +335,12 @@ class Korisnik extends BaseController
              
         }
     
+	/**
+	* Funkcija koja uzima podatke sa stranice za editovanje oglasa i validira ih. Ukoliko je validacija uspesna oglas se update-uje u bazi.
+	* Ukoliko validacija nije uspesna, korisnik dobija biva obavesen koja polja je lose uneo.
+	* @param int $IdD Sluzi za identifikaciju oglasa koji zelimo da editujemo
+	* @return void
+ 	*/   
     public function azurirajOglas($IdD) 
     {
 

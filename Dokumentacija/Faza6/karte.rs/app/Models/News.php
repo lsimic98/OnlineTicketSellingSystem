@@ -18,17 +18,21 @@ class News extends Model
     */
      
      /**
-
       * Funkcija koja prima niz id-jeva i vraca odgovarajuce manifestacije
-      * @param arry[int $iddog]
-      * @return arry      /
+      * @param arrya[int $iddog]
+      * @return array      /
       */
     public function findid($iddog) {
         return $this->whereIn('idD', $iddog)->findAll();
     }
     
-   
-      public function pretraga(int $perPage, string $ime="")
+	  /**
+      * Funkcija koja pretrazuje oglase po zadatom imenu i vrsi njihovu paginaciju
+      * @param int $perPage koliko zelimo da prikazemo manifestacije po stranici
+	  * @param string $ime string po kome vrsimo pretragu manifestacija
+      * @return array      /
+      */
+	public function pretraga(int $perPage, string $ime="")
       {
           
           $pager = \Config\Services::pager(null, null, false);
@@ -46,6 +50,11 @@ class News extends Model
           
       }
       
+	  /**
+      * Funkcija koja dohvata sve oglase iz baze i vrsi njihovu paginaciju
+      * @param int $perPage koliko zelimo da prikazemo oglasa po stranici
+      * @return array      /
+      */
       public function oglasi(int $perPage) {
           
           $pager = \Config\Services::pager(null, null, false);
@@ -61,6 +70,11 @@ class News extends Model
           return $query->orderBy('Status','DESC')->findAll($perPage, $offset);       
       }
       
+	  /**
+      * Funkcija koja dohvata sve manifestacije iz baze i vrsi njihovu paginaciju
+      * @param int $perPage koliko zelimo da prikazemo manifestacije po stranici
+      * @return array      /
+      */
         public function manifestacije(int $perPage) {
           
           $pager = \Config\Services::pager(null, null, false);
@@ -76,8 +90,14 @@ class News extends Model
           return $query->findAll($perPage, $offset);       
       }
       
-      
-           public function pretragaOglasa(int $perPage, string $ime="")
+	  
+  /**
+      * Funkcija koja pretrazuje oglase po zadatom imenu i vrsi njihovu paginaciju
+      * @param int $perPage koliko zelimo da prikazemo oglasa po stranici
+	  * @param string $ime string po kome vrsimo pretragu oglasa
+      * @return array      /
+      */
+      public function pretragaOglasa(int $perPage, string $ime="")
       {
           
            $pager = \Config\Services::pager(null, null, false);

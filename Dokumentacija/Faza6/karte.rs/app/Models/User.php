@@ -6,10 +6,18 @@ class User extends Model
 {
     protected $table      = 'korisnik';
     protected $primaryKey = 'Korime';
-   protected $allowedFields = ['KorIme', 'Ime', 'Prezime', 'Email', 'Sifra', 'Telefon', 'BRLK', 'Grad', 'Adresa', 'Drzava'];
+    protected $allowedFields = ['KorIme', 'Ime', 'Prezime', 'Email', 'Sifra', 'Telefon', 'BRLK', 'Grad', 'Adresa', 'Drzava'];
     protected $returnType = 'object';
     
     
+	
+	/**
+	* Funkcija koja dohvata korisnika po zadataom korisnickom imenu
+	*
+	* @param int $korime
+	* @return object
+	*
+	*/
       public function uzmiKorisnika($korime) {
           
           $builder = $this->db->table('Ima_ulogu');
@@ -22,7 +30,13 @@ class User extends Model
             
       }
       
-      
+    /**
+	* Funkcija koja dohvata sve korisnike i moderatore
+	*
+	* 
+	* @return array
+	*
+	*/
       public function dohvatiKorisnikeiModetatore() {
           
           /*$this->db->select('*');
@@ -48,7 +62,14 @@ class User extends Model
       }
       
       
-      
+    /**
+	* Funkcija koja dohvata sve korisnike i moderatore i vrsi njihovu paginacju po zadatom broju
+	*
+	* @param int $perPage koliko zelimo da prikazemo korisnika i moderatora po stranici
+	* @param string $ime string po kome vrsimo pretragu korisnika, ako je taj parametar razlicit od null, ako je jednak null, onda prikazuje sve korisnike i moderatore.
+	* @return array
+	*
+	*/
       public function paginateUsers(int $perPage, string $ime=null)
       {
           
