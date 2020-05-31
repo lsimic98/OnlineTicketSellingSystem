@@ -4,13 +4,19 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Filters\FilterInterface;
 
-class GostFilter implements FilterInterface
+class KorisnikFilter implements FilterInterface
 {
     public function before(RequestInterface $request)
     {
         $session = session();
-        if($session->has('user'))
-            return redirect()->to(site_url($session->get('user')->Opis));
+        if ($session->has('user')){
+            $korisnik = $session->get('user');
+            if ($korisnik->Opis != 'Korisnik')
+                return redirect()->to(site_url($korisnik->Opis));
+        }
+        else{
+            return redirect()->to(site_url('Gost'));
+        }
     }
 
     //--------------------------------------------------------------------

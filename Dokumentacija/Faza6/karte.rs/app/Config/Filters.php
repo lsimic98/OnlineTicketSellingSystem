@@ -10,8 +10,10 @@ class Filters extends BaseConfig
 		'csrf'     => \CodeIgniter\Filters\CSRF::class,
 		'toolbar'  => \CodeIgniter\Filters\DebugToolbar::class,
 		'honeypot' => \CodeIgniter\Filters\Honeypot::class,
-	    'gost'=>\App\Filters\GostFilter::class,
-	    'user'=>\App\Filters\UserFilter::class,
+                'gost'=>\App\Filters\GostFilter::class,
+                'korisnik' => \App\Filters\KorisnikFilter::class,
+		'moderator' => \App\Filters\ModeratorFilter::class,
+		'admin' => \App\Filters\AdminFilter::class
 
         ];
 
@@ -36,7 +38,9 @@ class Filters extends BaseConfig
 	// that they should run on, like:
 	//    'isLoggedIn' => ['before' => ['account/*', 'profiles/*']],
 	public $filters = [
-        'user' => ['before' => ['Korisnik/*', 'Korisnik']],
-        'gost' => ['before' => ['Gost/*', 'Gost', '/']]
+        'gost'=>['before'=>['/', 'Gost', 'Gost/*']],
+	'korisnik'=>['before'=>['Korisnik', 'Korisnik/*']],
+	'moderator'=>['before'=>['Moderator', 'Moderator/*']],
+	'admin'=>['before'=>['Admin', 'Admin/*']]
     ];
 }

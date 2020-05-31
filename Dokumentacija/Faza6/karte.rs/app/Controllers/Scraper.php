@@ -4,9 +4,22 @@ use App\Models\News;
 ini_set('max_execution_time', 300);
 
 include '../app/Libraries/simple_html_dom.php';
-class Simple extends BaseController
+
+
+/**
+* Scraper – klasa koja predstavlja implementaciju web scrapinga sa bibliotekom simple_html_dom.php 
+*
+* @version 1.0
+*/
+class Scraper extends BaseController
 {
-    public function test()
+    /**
+     * 
+     * Funkcija koja radi scraping sa sajta http://www.gigstix.com i prikupljene manifestacije upisuje u bazu
+     * 
+     * @return void     
+     */
+    public function Main()
     {
         $news = new News();
         $gigs = addslashes('http://www.gigstix.com');
@@ -57,6 +70,16 @@ class Simple extends BaseController
         }
     }
 
+    
+    /**
+
+     * Funkcija  koja prima stranicu manifestacije za obradu
+     * 
+     * @param string $link Link od manifestacije ciji opis scrap-ujemo
+     * @return array[int $cena, string $opis]
+     * 
+     *      
+     */
     private function detalji($link)
     {
         $content = file_get_contents($link);
@@ -102,7 +125,16 @@ class Simple extends BaseController
         }
 
     }
+    /**
 
+     * 
+     * Funkcija koja tekstualni opisa cene formatira u podatke skladne bazi podataka
+     * 
+     * @param string $cena - Tekstualni opis cene dogadjaja
+     * @return array[string $opis, int $cena]
+     * 
+     *      
+     */
     private function obrada($cena)
     {
         $text = explode('dinara', $cena);

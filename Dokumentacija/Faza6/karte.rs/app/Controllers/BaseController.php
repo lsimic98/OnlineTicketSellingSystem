@@ -17,6 +17,9 @@ namespace App\Controllers;
 use App\Models\News;
 use CodeIgniter\Controller;
 
+
+
+
 class BaseController extends Controller
 {
 
@@ -27,7 +30,20 @@ class BaseController extends Controller
 	 *
 	 * @var array
 	 */
+    
+         /**
+	 * Helperi za lakse upravljanje formom i url
+	 *
+	 * @var array 
+	 */
 	protected $helpers = ['form', 'url'];
+        
+        /**
+         *
+         * Informacija koja se salje navigaciji za prikaz informacije o trenutnoj stranici
+         * 
+         * @var string
+         */
         protected $method = 'index';
         
 
@@ -49,6 +65,12 @@ class BaseController extends Controller
     protected function prikaz($page, $data) {
         throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
     }
+    
+      /**
+	 * Funkcija za prikaz pocetne stranice
+	 *
+	 * @return void
+	 */
     public function index()
     {
         $this->method = 'index';
@@ -61,7 +83,12 @@ class BaseController extends Controller
         
         $this->prikaz("index", ['data'=>$data,'news'=>$news, 'method'=>$this->method]);
     }
-
+    
+    /**
+	 * Funkcija za pretragu manifestacija  i njihovu paginaciju
+	 *
+	 * @return void
+	 */
     public function pretraga()
     {
         $this->method = 'index';
@@ -76,9 +103,13 @@ class BaseController extends Controller
         $this->prikaz("index", ['data'=>$data , 'trazeno'=>$this->request->getVar('search'), 'method'=>$this->method]);
     }
     
-    //Dzoni'o
-    
   
+    
+        /**
+	 * Funkcija za prikaz oglasa i njihovu paginaciju
+	 *
+	 * @return void
+	 */
     public function oglasi()
     {
         $newsDB = new News();
@@ -88,6 +119,12 @@ class BaseController extends Controller
         ];
         $this->prikaz('oglasi',['data'=>$data,'method'=>$this->method, /*'news'=>$news*/]);
     }
+    
+     /**
+	 * Funkcija za objavljivanje oglasa korisnika
+	 *
+	 * @return void
+	 */
     public function objaviOglas()
     {
         $naslov = 'Objavljivanje oglasa';
@@ -101,8 +138,14 @@ class BaseController extends Controller
     
     
     
-    //Perin'o
-    
+
+    /**
+     * Funkcija za dodavanje manifestacije u korpu
+     *
+     *
+     * @param int $iddog Predstavlja ID manifestacije
+     * @return void
+     */
     public function addtocart($iddog)
     {
         if(!isset($_SESSION['korpa'][$iddog]))
@@ -116,6 +159,11 @@ class BaseController extends Controller
         }
 
     }
+    
+     /**
+     * Funkcija koja poziva stranicu za prikaz sadrzaja korpe gosta
+     * @return void
+     */
 
     public function korpa()
     {
@@ -133,17 +181,30 @@ class BaseController extends Controller
     }
 
 
+    /**
+     * Funkcija koja povecava broj karata za zeljenu manifestaciju
+     * @return void
+     */
     public function inccart($iddog)
     {
         $_SESSION['korpa'][$iddog] += 1;
     }
-
+    
+    
+    /**
+     * Funkcija koja smanjuje broj karata za zeljenu manifestaciju
+     * @return void
+     */
     public function deccart($iddog)
     {
         if($_SESSION['korpa'][$iddog] > 1)
         { $_SESSION['korpa'][$iddog] -= 1;}
     }
 
+    /**
+     * Funkcija koja uklanja zeljenu manifestaciju iz korpe
+     * @return void
+     */
     public function delcart($iddog)
     {
         unset($_SESSION['korpa'][$iddog]);

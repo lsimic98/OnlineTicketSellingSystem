@@ -3,8 +3,22 @@ use App\Models\User;
 use App\Models\News;
 use App\Models\Role;
 use App\Models\Roles;
+
+/**
+* Korisnik – klasa koja predstavlja ulogu korisnika
+*
+* @version 1.0
+*/
 class Korisnik extends BaseController
 {
+    
+    /**
+	* Funkcija koju ostale funkcije pozivaju zbog ucitavanja odgovarajuce stranice
+	*
+	* @param String $page
+	* @param String[] $data
+	* @return void
+	*/
     protected function prikaz($page, $data)
     {
       $data['controller']='Korisnik';
@@ -122,7 +136,7 @@ class Korisnik extends BaseController
             if($this->request->getVar("email")!=$this->session->get('user')->Email)
                 $korisnik = $userDB->where('Email', $this->request->getVar("email"))->find();
             
-            if($korisnik==null && $this->request->getVar("lozinka")==$this->session->get('user')->Sifra && $this->request->getVar("ponlozinka")!=null){
+            if($korisnik==null && md5($this->request->getVar("lozinka"))==$this->session->get('user')->Sifra && $this->request->getVar("ponlozinka")!=null){
                 $userDB->where('KorIme', $this->session->get('user')->KorIme);
                 
                 $userDB->set(
@@ -131,7 +145,7 @@ class Korisnik extends BaseController
                     'Prezime'=>$this->request->getVar("prezime"),
                     //'KorIme'=>$this->request->getVar("korime"),
                     'Email'=>$this->request->getVar("email"),
-                    'Sifra'=>$this->request->getVar("ponlozinka"),
+                    'Sifra'=>md5($this->request->getVar("ponlozinka")),
                     'Telefon'=>$this->request->getVar("telefon"),
                     //'JMBG'=>$this->request->getVar("jmbg"),
                     'BRLK'=>$this->request->getVar("brlk"),
@@ -337,7 +351,10 @@ class Korisnik extends BaseController
         
         
    
-    
+    /**
+     * Funkcija koja,ukoliko korisnik uneo ispravne podatke ,izvrsava transakciju
+     * @return void
+     */
     public function kupi()
     {
         if (isset($_SESSION['korpa']) && count($_SESSION['korpa']) > 0 && $this->validate(['brkartice'=>'required' , 'mesec'=>'required' , 'god'=>'required' ,  'cvc'=>'required']))
@@ -397,7 +414,10 @@ class Korisnik extends BaseController
             return $this->korpa();
     }
      
-      
+      /**
+     * Funkcija koja poziva stranicu za prikaz sadrzaja korpe korisnika
+     * @return void
+     */ 
      public function korpa()
     {
         $method = 'korpa';

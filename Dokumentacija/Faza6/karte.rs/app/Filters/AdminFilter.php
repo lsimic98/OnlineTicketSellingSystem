@@ -4,13 +4,19 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Filters\FilterInterface;
 
-class UserFilter implements FilterInterface
+class AdminFilter implements FilterInterface
 {
     public function before(RequestInterface $request)
     {
         $session = session();
-        if(!$session->has('user'))
+        if ($session->has('user')){
+            $korisnik = $session->get('user');
+            if ($korisnik->Opis != 'Admin')
+                return redirect()->to(site_url($korisnik->Opis));
+        }
+        else{
             return redirect()->to(site_url('Gost'));
+        }
     }
 
     //--------------------------------------------------------------------

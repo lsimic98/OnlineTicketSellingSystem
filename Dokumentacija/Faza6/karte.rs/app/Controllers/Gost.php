@@ -2,9 +2,23 @@
 use App\Models\User;
 use App\Models\News;
 use App\Models\Role;
+
+/**
+* Gost – klasa koja predstavlja rolu gosta tj. korisnika pre nego sto se loginuje
+*
+* @version 1.0
+*/
+
+
 class Gost extends BaseController
 {
-
+    /**
+	* Funkcija koju ostale funkcije pozivaju zbog ucitavanja odgovarajuce stranice
+	*
+	* @param String $page
+	* @param String[] $data
+	* @return void
+	*/
     protected function prikaz($page, $data)
     {
         $data['controller']='Gost';
@@ -13,14 +27,28 @@ class Gost extends BaseController
          echo view("Prototip/footer", $data);
 
     }
+    
+    /**
 
+     * Funkcija za prikaz stranice za login korisnika
+     * @param string $poruka Parametar se koristi za informacije o greskama, ukoliko se korisnik bezuspesno logovao
+     * @return void
+     * 
+     *      
+     */
     public function login($poruka=null)
     {
         
         $this->method = 'login';
         $this->prikaz("login", ['poruka'=>$poruka, 'method'=>$this->method]);
     }
-
+    
+     /**
+     * Funkcija za prikaz stranice za registraciju korisnika
+     * @param string $poruka Parametar se koristi za informacije, ukoliko se korsnik usepesno registrovao ili ukoliko se bezuspesno registrovao (zauzet email ili korisnicko ime)
+     * @return void
+     *      
+     */
     public function forma($poruka=null)
     {
         $nil = null;
@@ -28,7 +56,15 @@ class Gost extends BaseController
         $naslov = 'Registracija';
         $this->prikaz("forma", ['poruka'=>$poruka, 'method'=>$this->method, 'naslov'=>$naslov,'korisnik'=>$nil]);
     }
+    
+    
+   /**
 
+    * Funkcija koja prikuplja podatke iz forme za registraciju, vrsi validaciju tih podataka i upisuje novog korisnika u bazi, ukoliko je validacija uspensa. Ukoliko validacija nije uspesna, 
+    * korisnik se obavestava
+    * @return void 
+    * 
+    *     */
     public function registracija()
     {
         $nil = null;
@@ -65,7 +101,7 @@ class Gost extends BaseController
                     'Prezime'=>$this->request->getVar("prezime"),
                     'KorIme'=>$korime,
                     'Email'=>$this->request->getVar("email"),
-                    'Sifra'=>$this->request->getVar("lozinka"),
+                    'Sifra'=>md5($this->request->getVar("lozinka")),
                     'Telefon'=>$this->request->getVar("telefon"),
                     //'JMBG'=>$this->request->getVar("jmbg"),
                     'BRLK'=>$this->request->getVar("brlk"),
@@ -97,7 +133,15 @@ class Gost extends BaseController
 
     }
     
-    
+/**
+
+ * 
+ * 
+ * Funkcija koja prikuplja podatke sa staranice za login , proverava validnost tih podataka, dohvata korisnika iz baze po unetom korisnickom imenu
+ * Ako korisik postoji u bazi, on se preusmerava na pocetnu stranicu za korisnika, a ako ne postoji korisnik se obavstava o tome.
+ * @return type
+ *  /    
+ */
 public function loginSubmit()
     {
         if(!$this->validate(['korime'=>'required' , 'lozinka'=>'required']))
@@ -118,7 +162,7 @@ public function loginSubmit()
 
         if($user==null)
             return $this->login("Korisnik ne postoji");
-        if($user->Sifra!=$this->request->getVar('lozinka'))
+        if($user->Sifra!=md5($this->request->getVar('lozinka')))
             return $this->login('Pogresna sifra');
 
         $this->session->set('user', $user);

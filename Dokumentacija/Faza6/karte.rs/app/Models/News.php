@@ -16,6 +16,13 @@ class News extends Model
             ->orLike('Opis', $tekst)->findAll();
     }
     */
+     
+     /**
+
+      * Funkcija koja prima niz id-jeva i vraca odgovarajuce manifestacije
+      * @param arry[int $iddog]
+      * @return arry      /
+      */
     public function findid($iddog) {
         return $this->whereIn('idD', $iddog)->findAll();
     }
