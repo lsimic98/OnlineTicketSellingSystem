@@ -17,9 +17,15 @@ class Moderator extends Korisnik{
 
     }
     
+	
+	/**
+	* Prikazuje stranicu gde se moderatoru ispisuju svi oglasi sortirani po oglasima koji nisu odboreni. Moderator i Admin mogu da ih odobre ili izbrisu.
+	* 
+	* @return void
+	*/
     public function moderatorMode()
     {
-        $this->method = 'dodajOglas';
+        $this->method = 'userInfo';
         $newsDB = new News();
         $news = $newsDB->oglasi(5);
         $data = [
