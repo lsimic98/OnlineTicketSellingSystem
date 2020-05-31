@@ -37,6 +37,21 @@ class Admin extends Moderator{
 
         $this->prikaz("adminOglasi", ['data'=>$data,'method' =>  $this->method ,'admin'=>  $korime = $this->session->get('user')->KorIme, 'oglasi'=>$news]);
     }
+	
+	/**
+	* Funkcija koju korisnik poziva za uklanjanje oglasa koji je prethodno objavio 
+	*
+	* @return void
+ 	*/
+	public function ukloniOglas($idOglas)
+    {
+            $korime = $this->session->get('user')->KorIme;
+            $newsDB = new News();
+            $newsDB->where('IdD',$idOglas)->where('KorIme',$korime)->delete();
+            return redirect()->to(site_url('Admin/userInfo'));
+                   
+        
+    }
     
     /**
      * Funkcija za pretragu korisnika u bazi
