@@ -116,7 +116,7 @@ class Korisnik extends BaseController
             $korime = $this->session->get('user')->KorIme;
             $newsDB = new News();
             $newsDB->where('IdD',$idOglas)->where('KorIme',$korime)->delete();
-            return redirect()->to(site_url('Korisnik/userInfo'));
+            return redirect()->to(site_url($this->session->get('user')->Opis.'/userInfo'));
                    
         
     }
@@ -206,7 +206,7 @@ class Korisnik extends BaseController
                     'BRLK'=>$this->request->getVar("brlk"),
                     'Grad'=>$this->request->getVar("grad"),
                     'Adresa'=>$this->request->getVar("adresa"),
-                    'Drzava' => $this->request->getVar("drzava")
+                    'Drzava' => $this->request->getVar("drzava"),
                 ]
                 );
                  $userDB->update();
@@ -273,7 +273,7 @@ class Korisnik extends BaseController
             }
             else
             {
-                return redirect()->to(site_url('Korisnik/userInfo'));
+                return redirect()->to(site_url($this->session->get('user')->Opis.'/userInfo'));
             }        
         
     }
@@ -325,12 +325,14 @@ class Korisnik extends BaseController
                     'BrojKarata'=>$this->request->getVar("brojkarata"),
                     'KorIme'=>$this->session->get('user')->KorIme,
                     'Status'=>"N",
-                    'Telefon' => $this->request->getVar("telefon")
+                    'Telefon' => $this->request->getVar("telefon"),
                 ]
                 );
              
              
-             return redirect()->to(site_url('Korisnik/userInfo'));
+             
+             
+             return redirect()->to(site_url($this->session->get('user')->Opis.'/userInfo'));
            
              
         }
@@ -367,7 +369,7 @@ class Korisnik extends BaseController
                     'BrojKarata'=>$this->request->getVar("brojkarata"),
                     'KorIme'=>$this->session->get('user')->KorIme,
                     'Status'=>"N",
-                    'Telefon'=>$this->request->getVar("telefon")
+                    'Telefon'=> $this->request->getVar("telefon"),
                 ]
             );
             $news->update();
@@ -385,9 +387,8 @@ class Korisnik extends BaseController
                     'Tip'=>"O",
                     'BrojKarata'=>$this->request->getVar("brojkarata"),
                     'KorIme'=>$this->session->get('user')->KorIme,
-                    'Status'=>"N",
-                    'Telefon'=>$this->request->getVar("telefon")
-                    
+                    'Status'=>'N',
+                    'Telefon'=> $this->request->getVar("telefon"), 
                 ]
             );
             $news->update();
@@ -396,7 +397,7 @@ class Korisnik extends BaseController
         }
              
              
-             return redirect()->to(site_url('Korisnik/userInfo'));
+             return redirect()->to(site_url($this->session->get('user')->Opis.'/userInfo'));
         
         
     }

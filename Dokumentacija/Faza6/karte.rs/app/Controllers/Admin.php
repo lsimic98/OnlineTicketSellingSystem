@@ -38,20 +38,7 @@ class Admin extends Moderator{
         $this->prikaz("adminOglasi", ['data'=>$data,'method' =>  $this->method ,'admin'=>  $korime = $this->session->get('user')->KorIme, 'oglasi'=>$news]);
     }
 	
-	/**
-	* Funkcija koju korisnik poziva za uklanjanje oglasa koji je prethodno objavio 
-	*
-	* @return void
- 	*/
-	public function ukloniOglas($idOglas)
-    {
-            $korime = $this->session->get('user')->KorIme;
-            $newsDB = new News();
-            $newsDB->where('IdD',$idOglas)->where('KorIme',$korime)->delete();
-            return redirect()->to(site_url('Admin/userInfo'));
-                   
-        
-    }
+
     
     /**
      * Funkcija za pretragu korisnika u bazi
@@ -123,11 +110,23 @@ class Admin extends Moderator{
 
 
     }
-      /**
-     * Funkcija za dodelu statusa moderatora korisniku
-     *
-     * @return void
-     */
+    
+        public function obrisiOglas()
+    {
+        $oglasi = $_POST['favorite'];
+        $newsDB = new News();
+        foreach ($oglasi as $oglas)
+        {
+            $newsDB->where("IdD", $oglas)->delete();
+        }
+        $response['favorite'] = $oglasi;
+
+        echo json_encode($response);
+        
+        return redirect()->to(site_url('Admin/adminOglasi'));
+
+    }
+  
    
     public function dodajModeratora()
     {
@@ -146,6 +145,7 @@ class Admin extends Moderator{
         $response['favorite'] = $site;
 
         echo json_encode($response);
+        return redirect()->to(site_url('index'));
     }
 	
 	 /**
@@ -153,7 +153,6 @@ class Admin extends Moderator{
      *
      * @return void
      */
-	 
     public function oduzmiModeratora()
     {
         $site = $_POST['favorite'];

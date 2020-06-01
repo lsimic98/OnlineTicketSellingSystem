@@ -47,20 +47,11 @@
                             ?>
                             </a></div></li>
                     <li><a class="<?php if($method=='userInfo') echo 'current';?>" href="<?php echo site_url("Korisnik/userInfo"); ?>">Korisnički profil</a></li>
-                     <li><a href="<?php echo site_url("Korisnik/oglasi"); ?>" >Prodaja Karata</a></li>
+                     <li><a class="<?php if($method=='oglasi') echo 'current';?>" href="<?php echo site_url("Korisnik/oglasi"); ?>" >Prodaja Karata</a></li>
                     <li><a href="<?php echo site_url("Korisnik/logout"); ?>" >Izloguj se</a</li>
                  </ul>
         </div><!-- kraj nav-->
-    <div class="searchBar">
-        <table>
-            <form class="example">
-            <tr>
-                <td>  <input type="text" name="search" class = "searchText"placeholder="Unesite tekst za pretragu"></td>
-                <td>  <button type="submit"class= "stupidButton" formaction="<?php echo site_url('Korisnik/pretraga');?>"> <i class="fa fa-search" aria-hidden="true"></i></button></td>
-            </tr>
-        </form>
-        </table>
-    </div>
+
 
 
     <div class="icon">

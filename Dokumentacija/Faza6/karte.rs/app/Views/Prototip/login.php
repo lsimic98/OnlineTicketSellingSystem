@@ -1,11 +1,10 @@
 
-<body>
-    <div id="wrapper">
+
    <div id="main">
    <h1 align="center"> Logovanje</h1>
    <form  method="post"name="loginform" action="<?= site_url("Gost/loginSubmit") ?>" >
        <?php if(isset($poruka)) echo "<div id='loginPoruka'><span>$poruka</span></div>"; ?>
-	<ul class="form-style-1 loginForm">
+	<ul id = "verticalMain" class="form-style-1 loginForm">
 
 		<li>
         <label>Korisničko ime: <span class="required">*</span></label>
@@ -32,7 +31,7 @@
     
     
     </div><!-- kraj wrap-->
-</body>
+
 
 
 

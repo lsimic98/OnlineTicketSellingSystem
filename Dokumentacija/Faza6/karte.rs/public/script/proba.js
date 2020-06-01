@@ -16,10 +16,10 @@ $(document).ready(function () {
         if(w>768) x.css({"display": "block"});
     });
 
-    $("a[aria-label='Next']").text("Sledeci");
-    $("a[aria-label='Last']").text("Poslednja");
-    $("a[aria-label='Previous']").text("Prethodna");
-    $("a[aria-label='First']").text("Prva");
+    $("a[aria-label='Next']").css({"display":"none"});
+    $("a[aria-label='Last']").css({"display":"none"});
+    $("a[aria-label='Previous']").css({"display":"none"});
+    $("a[aria-label='First']").css({"display":"none"});
 
  });
 

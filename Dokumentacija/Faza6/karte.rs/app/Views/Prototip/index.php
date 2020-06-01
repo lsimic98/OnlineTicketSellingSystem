@@ -1,5 +1,15 @@
 
 <div id="main">
+       <div class="searchBar">
+        <table>
+            <form class="example" >
+            <tr>
+                <td>  <input type="text" name="search" class = "searchText"placeholder="Unesite tekst za pretragu"></td>
+                <td>    <button type="submit"class= "stupidButton" formaction="<?php echo site_url('Gost/pretraga');?>"> <i class="fa fa-search" aria-hidden="true"></i></button></td>
+            </tr>
+        </form>
+        </table>
+    </div>
        <?php
        
           if(!empty($trazeno))
@@ -39,10 +49,12 @@
 
 
        ?>
-
-       <?= $data['pager']->links() ?>
-      
+    <div class="pagination" >
+        <?= $data['pager']->links() ?>
+    </div>
 </div>
-   <br>
+</div>
+
+
 
   

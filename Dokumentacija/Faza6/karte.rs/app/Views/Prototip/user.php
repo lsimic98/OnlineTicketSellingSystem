@@ -90,15 +90,17 @@
 </script>
 
 
+<div id = "main" style="margin-top: 50px;" ">
+<div class="container">
 
+
+    <!-- /.row -->
+
+    <div class="row">
 <div id="mainUser">
-     
-     
-  
-            
                 <img src="/images/avatar.png">
                 <br>
-                <p align="left">[<?php  echo $uloga->Opis ?>]<?php  echo $user->KorIme ?></p> 
+                <p  align="center">[<?php  echo $uloga->Opis ?>]<?php  echo $user->KorIme ?></p>
 
                 <ul>
                     <?php
@@ -162,6 +164,9 @@
                     </table>
 
         </div>
-    
-       
+
+</div>
+</div>
+</div>
+</div>
     

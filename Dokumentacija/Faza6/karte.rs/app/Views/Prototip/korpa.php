@@ -5,46 +5,46 @@
 
 <div id="main">
 
-<div class="container">
+    <div class="container">
 
 
-    <!-- /.row -->
+        <!-- /.row -->
 
-    <div class="row">
-        <h1 align="center">Plaćanje</h1>
-        <form action="  <?php  if(isset($_SESSION['user']))
-              echo site_url($opis."/kupi");
-        else  echo site_url("Gost/login");
-        ?>" method="post">
+        <div class="row">
+            <h1 align="center">Plaćanje</h1>
+            <form action="  <?php  if(isset($_SESSION['user']))
+                echo site_url($opis."/kupi");
+            else  echo site_url("Gost/login");
+            ?>" method="post">
 
-        <ul class="form-style-2 table-responsive">
-            <li>
-            <table id="tableKorpa">
-                <thead>
-                <tr>
-                    <th>Slika</th>
-                    <th>Naziv</th>
-                    <th>Kolicina</th>
-                    <th>Ukupno</th>
-                    <th>Opcije</th>
+                <ul class="form-style-2 table-responsive">
+                    <li>
+                        <table id="tableKorpa">
+                            <thead>
+                            <tr>
+                                <th>Slika</th>
+                                <th>Naziv</th>
+                                <th>Kolicina</th>
+                                <th>Ukupno</th>
+                                <th>Opcije</th>
 
-                </tr>
-                </thead>
-                <tbody>
-                <?php
-                foreach ($news as $vest)
-                {
-                    $kolicina = $_SESSION['korpa'][$vest->IdD];
-                    $cena  = $kolicina * $vest->Cena;
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            foreach ($news as $vest)
+                            {
+                                $kolicina = $_SESSION['korpa'][$vest->IdD];
+                                $cena  = $kolicina * $vest->Cena;
 
-                    $cont = current_url(true)->getSegment(1);
-                    if($cont == "") $cont = "Gost";
+                                $cont = current_url(true)->getSegment(1);
+                                if($cont == "") $cont = "Gost";
 
-                    $linkinc = site_url("$cont/inccart/{$vest->IdD}");
-                    $linkdec = site_url("$cont/deccart/{$vest->IdD}");
-                    $linkdel = site_url("$cont/delcart/{$vest->IdD}");
-                    $slika = base64_encode($vest->Slika);
-                    $product = <<<DEL
+                                $linkinc = site_url("$cont/inccart/{$vest->IdD}");
+                                $linkdec = site_url("$cont/deccart/{$vest->IdD}");
+                                $linkdel = site_url("$cont/delcart/{$vest->IdD}");
+                                $slika = base64_encode($vest->Slika);
+                                $product = <<<DEL
 
                         <tr id="$vest->IdD">
                           <td> <img class= "slikaKorpa"alt="computer" src='data:image/jpeg;base64,$slika' width="160em" height="90em"/></td>
@@ -57,42 +57,42 @@
                               <button type="button" class="dugmecartdel" link = '$linkdel' iddog = '$vest->IdD'>delete</button></td>
                           </tr>
 DEL;
-                    echo $product;
-                    
-                }
+                                echo $product;
+
+                            }
 
 
-                ?>
-                <tr>
-                    <td colspan="5">
-                        <div class="col-xs-4">
+                            ?>
+                            <tr>
+                                <td colspan="5">
+                                    <div class="col-xs-4">
 
 
-            <?php
-                                $suma = 0;
-                                foreach ($news as $vest) {
-                                    $kolicina = $_SESSION['korpa'][$vest->IdD];
-                                    $cena = $kolicina * $vest->Cena;
-                                    $suma += $cena;
-                                }
-                                echo "<h2>Ukupan iznos: <span id = 'suma'>$suma</span> dinara</h2>";
+                                        <?php
+                                        $suma = 0;
+                                        foreach ($news as $vest) {
+                                            $kolicina = $_SESSION['korpa'][$vest->IdD];
+                                            $cena = $kolicina * $vest->Cena;
+                                            $suma += $cena;
+                                        }
+                                        echo "<h2>Ukupan iznos: <span id = 'suma'>$suma</span> dinara</h2>";
 
-                        ?>
-
-
-
+                                        ?>
 
 
 
-        </div>
 
 
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            </li>
-        </ul>
+
+                                    </div>
+
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </li>
+                </ul>
                 <ul class="form-style-1">
 
                     <li>
@@ -115,17 +115,18 @@ DEL;
                     </li>
 
                 </ul>
-        </form>
+            </form>
 
 
-        <!--  ***********CART TOTALS*************-->
+            <!--  ***********CART TOTALS*************-->
 
-        <!-- CART TOTALS-->
-
-
-    </div><!--Main Content-->
+            <!-- CART TOTALS-->
 
 
+        </div><!--Main Content-->
+
+
+    </div>
 </div>
 </div>
 

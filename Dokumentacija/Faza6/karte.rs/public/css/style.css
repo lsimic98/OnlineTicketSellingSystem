@@ -1,14 +1,13 @@
 @charset "utf-8";
 /* CSS Document */
 
-html{
-	background-image:url(../images/background.jpg);
-	background-attachment:fixed;
-	background-repeat:no-repeat;
-	background-size:cover;
-}
+
+
 body{
     font-family: 'Raleway', sans-serif;
+	margin: 0;
+	height:  100%;
+	padding: 0;
 
 	}
 
@@ -20,19 +19,22 @@ h5{font-size:20px;}
 h6{font-size:18px;}
 
 #wrapper{
-	margin:0 auto;
-	padding:0;
-	background-color: #fff;
-	width:1200px;
-       
+	width: 100vw;
+	height: 100%;
+	position: relative;
+	margin-left: -50vw;
+	left: 50%;
+	min-height: 100vh;
+
 }
 #head{
+
 	background-color:#BF0000;
-	overflow:hidden;
+        width:100%;
 	margin-bottom:1px;
-	height: 70px;
-       
-	
+	height: 74px;
+        padding-left: 10px;
+        padding-right: 10px;
 }
 .icon{
 	display: none;
@@ -49,7 +51,10 @@ h6{font-size:18px;}
 	
 
 #nav{
-	display:block;
+	display:flex;
+        overflow: hidden;
+        width: calc(100% - 200px - 300px);
+        
 }
 
 #nav ul{
@@ -82,17 +87,15 @@ h6{font-size:18px;}
 	padding-left:10px;
 	padding-right: 10px;
 	display:block;
-	height: 70px;
- 	line-height:70px;
+	height: 74px;
+ 	line-height:74px;
 	transition-property: background-color;
 	transition-duration: 0.45s;
 }
 .searchBar{
-	float: right;
-	height: 70px;
-	 line-height:70px;
-	margin:0 10px 0 20px;
-
+                
+		display: table;
+		margin: 0 auto;       
 }
 
 #korisnik{
@@ -157,13 +160,15 @@ h6{font-size:18px;}
 }
 #main{
 	display: block;
-	width:1180px;
+	max-width: 80%;
+
 	background-color:#fff;
 	padding:10px;
-	float:left;
 	overflow:hidden;
-	margin-bottom:5px;	
+	margin:0 auto;	
+        
 }
+
 
 #main h1, h2, h3{
 	border-bottom:5px solid #BF0000;
@@ -182,6 +187,11 @@ h6{font-size:18px;}
 	font-size: 25px;
 	text-align: center;
   }
+
+.verticalMain{
+	display: table-cell;
+	vertical-align: middle;
+}
 .dugme{
 
 	background-color: #4CAF50; /* Green */
@@ -308,9 +318,7 @@ h6{font-size:18px;}
 {
 	float: left;
 }
-.deo1 h2{
-	margin-left:5px;
-}
+
 .indexButton
 {
 	margin-left: 10px;
@@ -327,7 +335,7 @@ h6{font-size:18px;}
 	width: 60%;
 }
 .oglas{
-	width: 375px;
+	width:calc(33.3333333% - 18px);
   padding:6px;
   border-width: 3px;
   font-family: Arial, Helvetica, sans-serif;
@@ -575,6 +583,7 @@ select{
 	background-color:#DADDDB;
 	text-align:center;
 	line-height:40px;
+	z-index:1000;
 }
 
 #kart_error,
@@ -598,7 +607,8 @@ select{
 	border-bottom:5px solid #BF0000;
 	margin:10px;
 	padding-bottom: 10px;
-
+	margin-left: 0px;
+	margin-right: 0px;
 }
 #oglas h1
 {
@@ -721,17 +731,20 @@ select{
 	font-size: 28px;
 }
 
+#main .userPush{
+	margin-top: 100px;
+}
+@media screen and (min-width:768px) and (max-width:1410px){
+    
+   
 
-@media screen and (min-width:768px) and (max-width:1200px){
-	
-	#wrapper{
-		width:700px;
-		
-		
-		}	
 		#head{
 			width: auto;
-			height: auto;
+		}
+                #logo {
+			width: auto;
+			float: left;	
+			
 		}
 
 		#nav{
@@ -740,24 +753,20 @@ select{
 		}
 		
 		.icon{
-		display: none;
+			display: none;
 			text-align: center;
 		}
 
-	.searchBar{
-		display: table;
-		width: 50%;
-		float: right;
-		margin: 0 auto;
-	}
+	
 		#korisnik{
 			width: auto;
 		}
 		#main{
-			width:500px;
+
+			max-width: 80%;
 			text-align: center;
 			float: none;
-			margin:auto;
+			margin:0 auto;
 
 		}
 		#main img{
@@ -789,9 +798,10 @@ select{
 
 		#side{
 			width: auto;
-			text-align: center;
+
 			float: none;
 		}
+
 
 		.side2{
 			width: auto;
@@ -849,15 +859,15 @@ select{
 		padding: 5px;
 		font-size: 22px;
 	}
-
+.searchBar{
+		
+		display: table;
+		margin: 0 auto;
+	}
 }
 
 @media screen and (max-width:767px){
-	#wrapper{
-		width:80%;		
-				
-		}	
-		
+
 
 		#head{
 			height: auto;
@@ -928,11 +938,11 @@ select{
 			
 		#main{
 			width:auto;
+			max-width: 100%;
+
 			margin-right:0;
 			float:none;
 			text-align: center;
-			
-
 		}
 		#main h2{
 			text-align:center;
@@ -970,6 +980,10 @@ select{
 		width:auto;
 		float:none;
 		padding:10px;
+
+	}
+	#side h2{
+		text-align: center;
 	}
 	.side2 {
 		width:auto;

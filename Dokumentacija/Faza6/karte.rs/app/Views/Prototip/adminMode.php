@@ -60,7 +60,7 @@
 
        <?= $data['pager']->links() ?>
    </div>
-</div>
+</div></div>
     
     <!-- kraj wrap-->
 
@@ -83,6 +83,7 @@
                        $("#proba").html(msg.favorite)
                    }
                });
+                window.location = "http://localhost:8080/Admin/adminMode";
            });
            $('#block').click(function(){
                alert("<?php echo base_url("Admin/ukloni"); ?>");
@@ -115,6 +116,7 @@
                        $("#proba").html(msg.favorite)
                    }
                });
+                window.location = "http://localhost:8080/Admin/adminMode";
            });
 
        });

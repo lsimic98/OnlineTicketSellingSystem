@@ -36,9 +36,10 @@ class Gost extends BaseController
      * 
      *      
      */
-    public function login($poruka=null)
+    public function login(string $poruka=null)
     {
-        
+        if($poruka!=null)
+            $poruka= urldecode($poruka);
         $this->method = 'login';
         $this->prikaz("login", ['poruka'=>$poruka, 'method'=>$this->method]);
     }

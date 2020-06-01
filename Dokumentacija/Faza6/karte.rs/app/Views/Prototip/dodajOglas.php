@@ -1,6 +1,7 @@
 
 <div id="main">
    <h1 align="center"><?php echo $naslov?></h1>
+
    <form class="formaKarte" action="<?php if($news!=null)echo site_url($opis.'/azurirajOglas/'.$news[0]->IdD); else echo site_url($opis.'/ubaciOglas');?>" enctype="multipart/form-data" method="post">
 	<ul class="form-style-1 prodajaKarata">
     <li><label>Naziv:<span class="required">*</span></label>
@@ -46,7 +47,7 @@
 
 		 <li>
         <label>Kontakt telefon <span class="required">*</span></label>
-        <input id="telefon" type="text" name="telefon" class="field-long" value="<?php if($news!=null)echo $news[0]->Telefon;?>"/>
+        <input id="telefon" type="text" name="telefon" class="field-long" placeholder="Kontakt telefon" value="<?php if($news!=null)echo $news[0]->Telefon;?>"/>
         <div id="telefon_error">Molimo Vas da unesete Kontakt</div>
     </li>
     <li>
@@ -68,4 +69,4 @@
     </li>
     </ul>
     </form>
-</div>
+</div></div>

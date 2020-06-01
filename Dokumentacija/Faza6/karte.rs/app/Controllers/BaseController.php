@@ -117,7 +117,7 @@ class BaseController extends Controller
             'news' => $newsDB->oglasi(6),
             'pager' => $newsDB->pager
         ];
-        $this->prikaz('oglasi',['data'=>$data,'method'=>$this->method, /*'news'=>$news*/]);
+        $this->prikaz('oglasi',['data'=>$data,'method'=>'oglasi', /*'news'=>$news*/]);
     }
     
      /**

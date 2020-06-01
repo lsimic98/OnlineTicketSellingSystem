@@ -8,8 +8,8 @@
 <title>karte.rs</title>
     
     <link href="/css/style.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="/fa/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -50,20 +50,11 @@
                             ?>
                         </a></div></li>
                     <li><a class="<?php if($method=='userInfo') echo 'current';?>" href="<?php echo site_url("Admin/userInfo"); ?>">Korisnički profil</a></li>
-                     <li><a class="<?php if($method=='admin') echo 'current';?>" href="<?php echo site_url("Admin/oglasi"); ?>" >Prodaja Karata</a></li>
-                    <li><a href="<?php echo site_url("Admin/logout"); ?>" >Izloguj se</a</li>
+                     <li><a class="<?php if($method=='oglasi') echo 'current';?>" href="<?php echo site_url("Admin/oglasi"); ?>" >Prodaja Karata</a></li>
+                     <li><a  href="<?php echo site_url("Admin/logout"); ?>" >Izloguj se</a></li>
                  </ul>
         </div><!-- kraj nav-->
-    <div class="searchBar">
-        <table>
-            <form class="example">
-            <tr>
-                <td>  <input type="text" name="search" class = "searchText"placeholder="Unesite tekst za pretragu"></td>
-                 <td>  <button type="submit"class= "stupidButton" formaction="<?php echo site_url('Admin/pretraga');?>"> <i class="fa fa-search" aria-hidden="true"></i></button></td>
-            </tr>
-        </form>
-        </table>
-    </div>
+
 
 
     <div class="icon">

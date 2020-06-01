@@ -1,8 +1,4 @@
 
-
-<body>
-
-<div id="wrapper">
    <div id="main">
        <div id="oglas">
          <h1> Oglasi</h1>
@@ -64,13 +60,15 @@
 
 
         <br>
+
+
    </div><!-- kraj za div main-->
 
-		<div class="pagination" >
-            <?= $data['pager']->links() ?>
-		</div>
-
+   <div class="pagination" >
+       <?= $data['pager']->links() ?>
+   </div>
+   </div>
 
     
-    </div><!-- kraj wrap-->
+   <!-- kraj wrap-->
 

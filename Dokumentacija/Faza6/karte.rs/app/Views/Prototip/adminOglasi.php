@@ -37,7 +37,7 @@
             {?>
                 <tr><td><?php echo $news->Naziv?> </td>
                     <td><?php echo $news->Status?> </td>
-                    <td><input type="checkbox" value="<?php echo $news->IdD;?>" name="user"></td></tr>
+                    <td><input type="checkbox" value="<?php echo $news->IdD;?>" name="oglas"></td></tr>
 
          <?php   }?>
                <tr>
@@ -57,12 +57,12 @@
 
            <?= $data['pager']->links() ?>
 
-   </div>
+   </div></div></div></div>
 
    <script type="text/javascript">
        $(document).ready(function() {
            $('#obrisiOglas').click(function(){
-               alert("<?php echo base_url("Admin/index"); ?>");
+
                var favorite = [];
                $.each($("input[name='oglas']:checked"), function(){
                    favorite.push($(this).val());
@@ -76,13 +76,15 @@
                        $("#proba").html(msg.favorite)
                    }
                });
+                window.location = "http://localhost:8080/Admin/adminOglasi";
            });
            $('#statusOglasa').click(function(){
-               alert("<?php echo base_url("Admin/Status"); ?>");
+
                var favorite = [];
                $.each($("input[name='oglas']:checked"), function(){
                    favorite.push($(this).val());
                });
+               alert(favorite);
                $.ajax({
                    url:'<?php echo site_url("Admin/promeniStatus"); ?>',
                    type:"POST",
@@ -92,6 +94,7 @@
                        $("#proba").html(msg.favorite)
                    }
                });
+               window.location = "http://localhost:8080/Admin/adminOglasi";
            });
        });
    </script>
