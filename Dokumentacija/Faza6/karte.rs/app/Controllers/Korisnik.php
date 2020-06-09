@@ -250,7 +250,7 @@ class Korisnik extends BaseController
     public function objaviOglas()
     {
         $naslov = 'Objavljivanje oglasa';
-        $this->method='dodajOglas';
+        $this->method='oglasi';
         $news = null;
         $this->prikaz('dodajOglas',['method'=>$this->method, 'news'=>$news, 'naslov'=>$naslov , 'opis'=>$this->session->get('user')->Opis]);
           
@@ -264,7 +264,7 @@ class Korisnik extends BaseController
         
     public function izmeniOglas($idOglas)    //Moderator i Admin mogu da edituju i brisu sve oglase
     {
-        
+
         $naslov = 'Izmena oglasa';
         $korime = $this->session->get('user')->KorIme;
 
@@ -272,7 +272,7 @@ class Korisnik extends BaseController
             $news = $newsDB->where('KorIme',$korime)->where('IdD',$idOglas)->find();
             if($news!=null)
             {
-                $this->method='dodajOglas';
+                $this->method='userInfo';
                 $this->prikaz('dodajOglas',['method'=>$this->method, 'news'=>$news, 'naslov'=>$naslov, 'opis'=>$this->session->get('user')->Opis]);
             }
             else

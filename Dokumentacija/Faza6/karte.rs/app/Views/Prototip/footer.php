@@ -1,4 +1,4 @@
 
 <div id="foot">
-         <p>Copyright&copy;</p>
+         <p>Copyright&copy; ZEN Team</p>
 </div><!-- kraj foot-->

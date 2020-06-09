@@ -7,8 +7,7 @@
 <meta charset="utf-8">
 <title>karte.rs</title>
 
-
-     <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
     <link href="/fa/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
@@ -16,8 +15,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    
-    
+
+
     <script src="/script/cart.js"></script>
     <script type=text/javascript src="/script/proba.js"></script>
     <script type=text/javascript src="/script/odustani.js"></script>
@@ -37,15 +36,23 @@
 
         </div><!-- kraj logo-->
 
-            <div id="nav" class="myTopNav">
-                <ul>
-                    <li><a class="<?php if($method=='index') echo 'current';?>" href="<?php echo site_url("Moderator/index"); ?>" >Početna</a></li>
-                    <li><a class="<?php if($method=='korpa') echo 'current';?>"  href="<?php echo site_url("Moderator/korpa"); ?>" >Korpa</a></li>
-                    <li><a class="<?php if($method=='userInfo') echo 'current';?>" href="<?php echo site_url("Moderator/userInfo"); ?>">Korisnički profil</a></li>
-                     <li><a class="<?php if($method=='oglasi') echo 'current';?>" href="<?php echo site_url("Moderator/oglasi"); ?>" >Prodaja Karata</a></li>
-                      <li><a href="<?php echo site_url("Moderator/logout"); ?>" >Izloguj se</a</li>
-       
-                 </ul>
+        <div id="nav" class="myTopNav">
+            <ul>
+                <li><a class="<?php if($method=='index') echo 'current';?>" href="<?php echo site_url("Moderator/index"); ?>" >Početna</a></li>
+                <li><div id="shopping-cart"><a class="<?php if($method=='korpa') echo 'current';?>"  href="<?php echo site_url("Moderator/korpa"); ?>" >Korpa
+                            <?php
+                            if(isset($_SESSION['korpa']) && count($_SESSION['korpa'])>0) {
+                                $num = count($_SESSION['korpa']);
+                                echo "<span id='korpaUkupno'>($num)</span>";
+                            }
+                            else
+                                echo "<span id='korpaUkupno'></span>";
+                            ?>
+                        </a></div></li>
+                <li><a class="<?php if($method=='userInfo') echo 'current';?>" href="<?php echo site_url("Moderator/userInfo"); ?>">Korisnički profil</a></li>
+                <li><a class="<?php if($method=='oglasi') echo 'current';?>" href="<?php echo site_url("Moderator/oglasi"); ?>" >Prodaja Karata</a></li>
+                <li><a  href="<?php echo site_url("Moderator/logout"); ?>" >Izloguj se</a></li>
+            </ul>
         </div><!-- kraj nav-->
    
 

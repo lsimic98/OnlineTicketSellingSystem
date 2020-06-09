@@ -86,7 +86,7 @@
                $.each($("input[name='oglas']:checked"), function(){
                    favorite.push($(this).val());
                });
-               alert(favorite);
+
                $.ajax({
                    url:'<?php echo site_url("Admin/promeniStatus"); ?>',
                    type:"POST",
