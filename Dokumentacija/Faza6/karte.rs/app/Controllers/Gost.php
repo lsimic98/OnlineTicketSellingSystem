@@ -2,6 +2,7 @@
 use App\Models\User;
 use App\Models\News;
 use App\Models\Role;
+use App\Models\Transakcija;
 
 /**
 * Gost – klasa koja predstavlja rolu gosta tj. korisnika pre nego sto se loginuje
@@ -114,8 +115,7 @@ class Gost extends BaseController
                  $role->insert(
                     [
                         'KorIme'=>$korime,
-                        'IdU'=>3
-                             
+                        'IdU'=>3,  
                     ]
                  );
             }
@@ -128,7 +128,7 @@ class Gost extends BaseController
         {
             return $this->forma("<font color='red' size='5px'>Korisničko ime je zauzeto!</font><br>");
         }
-        return $this->forma("<font color='red' size='5px'>Uspešno ste se registrovali :D</font><br>");
+        return $this->forma("<font color='green' size='5px'>Uspešno ste se registrovali :D</font><br>");
 
 
 

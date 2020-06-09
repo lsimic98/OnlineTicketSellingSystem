@@ -8,16 +8,16 @@
 <title>karte.rs</title>
 
 
-    <link href="/css/style.css" rel="stylesheet" type="text/css">
+     <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/fa/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     
-    <link href="/fa/css/all.css" rel="stylesheet">
+    
     <script src="/script/cart.js"></script>
     <script type=text/javascript src="/script/proba.js"></script>
     <script type=text/javascript src="/script/odustani.js"></script>

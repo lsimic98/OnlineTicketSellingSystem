@@ -16,6 +16,8 @@ namespace App\Controllers;
 
 use App\Models\News;
 use CodeIgniter\Controller;
+use App\Models\Transakcija;
+use App\Models\Stavka;
 
 
 
@@ -81,7 +83,13 @@ class BaseController extends Controller
             'pager' => $newsDB->pager
         ];
         
-        $this->prikaz("index", ['data'=>$data,'news'=>$news, 'method'=>$this->method]);
+        
+        if($this->session->has('user'))
+            $opis = $this->session->get('user')->Opis;
+        else
+            $opis = 'Gost';
+        
+        $this->prikaz("index", ['data'=>$data,'news'=>$news, 'method'=>$this->method, 'opis'=>$opis]);
     }
     
     /**
@@ -100,7 +108,13 @@ class BaseController extends Controller
             'pager' => $newsDB->pager
             
         ];
-        $this->prikaz("index", ['data'=>$data , 'trazeno'=>$this->request->getVar('search'), 'method'=>$this->method]);
+        
+        if($this->session->has('user'))
+            $opis = $this->session->get('user')->Opis;
+        else
+            $opis = 'Gost';
+        
+        $this->prikaz("index", ['data'=>$data , 'trazeno'=>$this->request->getVar('search'), 'method'=>$this->method, 'opis'=>$opis]);
     }
     
   

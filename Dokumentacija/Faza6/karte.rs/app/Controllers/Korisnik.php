@@ -3,6 +3,9 @@ use App\Models\User;
 use App\Models\News;
 use App\Models\Role;
 use App\Models\Roles;
+use App\Models\Transakcija;
+use App\Models\Stavka;
+
 
 /**
 * Korisnik – klasa koja predstavlja ulogu korisnika
@@ -37,9 +40,9 @@ class Korisnik extends BaseController
 	* @param string $lozinka2
 	* @return void
 	*/
-    private function izbrisiKorisnika($lozinka1, $lozinka2) {
+    public function izbrisiKorisnika($lozinka1, $lozinka2) {
         
-        if($lozinka1==$lozinka2 && $lozinka1==$this->session->get('user')->Sifra){
+        if($lozinka1==$lozinka2 && md5($lozinka1)==$this->session->get('user')->Sifra){
         
         $role = new Role();
         $user = new User();
@@ -50,11 +53,12 @@ class Korisnik extends BaseController
             $news->where("KorIme", $korime)->delete();
            /**/ /*$role*/$user->where("KorIme", $korime)->delete();
            //Brisanje transakcija korisnika ili setovanje NULL-ova u bazi :D
-           $this->logout();
+           $this->session->destroy();
+            return redirect()->to(site_url('/'));
         }
         else 
         {
-           $this->userInfo(); 
+           return redirect()->to(site_url($this->session->get('user')->Opis.'/userInfo')); 
         }
     }
 	/**

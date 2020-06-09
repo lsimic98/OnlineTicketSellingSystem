@@ -4,6 +4,8 @@ use App\Models\User;
 use App\Models\News;
 use App\Models\Role;
 use App\Models\Roles;
+use App\Models\Transakcija;
+use App\Models\Stavka;
 
 class Admin extends Moderator{
 
@@ -25,7 +27,7 @@ class Admin extends Moderator{
      public function pretragaOglasa()
     {
         $ime = $this->request->getVar('pretraziKorisnike');
-        $this->method = 'dodajOglas';
+        $this->method = 'userInfo';
         if($ime==null)
             $ime="";
         $newsDB = new News();
@@ -48,7 +50,9 @@ class Admin extends Moderator{
 
     public function pretragaKorisnika()
     {
+        
         $ime = $this->request->getVar('pretraziKorisnike');
+        $this->method = 'userInfo';
         if($ime==null)
             $ime="";
 
@@ -71,7 +75,7 @@ class Admin extends Moderator{
      */
     public function adminMode()
     {
-        $this->method = 'dodajOglas';
+        $this->method = 'userInfo';
         $userDB = new User();
         /*$db= \Config\Database::connect();
         $builder = $db->table('Ima_ulogu');
@@ -97,9 +101,9 @@ class Admin extends Moderator{
      */
     public function adminOglasi()
     {
-        $this->method = 'dodajOglas';
+        $this->method = 'userInfo';
         $newsDB = new News();
-        $news = $newsDB->oglasi(5);
+        $news = $newsDB->svioglasi(5);
         $data = [
             'news' => $news,
             'pager' => $newsDB->pager
@@ -111,21 +115,7 @@ class Admin extends Moderator{
 
     }
     
-        public function obrisiOglas()
-    {
-        $oglasi = $_POST['favorite'];
-        $newsDB = new News();
-        foreach ($oglasi as $oglas)
-        {
-            $newsDB->where("IdD", $oglas)->delete();
-        }
-        $response['favorite'] = $oglasi;
 
-        echo json_encode($response);
-        
-        return redirect()->to(site_url('Admin/adminOglasi'));
-
-    }
   
    
     public function dodajModeratora()

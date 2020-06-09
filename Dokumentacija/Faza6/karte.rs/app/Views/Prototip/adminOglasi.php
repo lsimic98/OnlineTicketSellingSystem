@@ -60,17 +60,19 @@
    </div></div></div></div>
 
    <script type="text/javascript">
-       $(document).ready(function() {
-           $('#obrisiOglas').click(function(){
-
+       $(document).ready(function() {      
+           $('#obrisiOglas').click(function(event){
+               event.preventDefault();
                var favorite = [];
                $.each($("input[name='oglas']:checked"), function(){
                    favorite.push($(this).val());
                });
                $.ajax({
+                   
                    url:'<?php echo site_url("Admin/obrisiOglas"); ?>',
                    type:"POST",
                    data: {favorite: favorite},
+                   async: false,
                    dataType: 'json',
                    success: function(msg){
                        $("#proba").html(msg.favorite)
@@ -78,8 +80,8 @@
                });
                 window.location = "http://localhost:8080/Admin/adminOglasi";
            });
-           $('#statusOglasa').click(function(){
-
+           $('#statusOglasa').click(function(event){
+               event.preventDefault();
                var favorite = [];
                $.each($("input[name='oglas']:checked"), function(){
                    favorite.push($(this).val());
@@ -89,6 +91,7 @@
                    url:'<?php echo site_url("Admin/promeniStatus"); ?>',
                    type:"POST",
                    data: {favorite: favorite},
+                   async: false,
                    dataType: 'json',
                    success: function(msg){
                        $("#proba").html(msg.favorite)

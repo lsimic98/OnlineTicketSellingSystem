@@ -41,6 +41,6 @@ class Filters extends BaseConfig
         'gost'=>['before'=>['/', 'Gost', 'Gost/*']],
 	'korisnik'=>['before'=>['Korisnik', 'Korisnik/*']],
 	'moderator'=>['before'=>['Moderator', 'Moderator/*']],
-       'admin'=>['before'=>['Admin', 'Admin/*']]
+        'admin'=>['before'=>['Admin', 'Admin/*']]
     ];
 }

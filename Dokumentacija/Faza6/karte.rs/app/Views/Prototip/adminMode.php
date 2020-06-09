@@ -68,8 +68,9 @@
    <script type="text/javascript">
        $(document).ready(function() {
 
-           $('#add').click(function(){
-               alert("<?php echo base_url("Admin/index"); ?>");
+           $('#add').click(function(event){
+               event.preventDefault();
+               
                var favorite = [];
                $.each($("input[name='user']:checked"), function(){
                    favorite.push($(this).val());
@@ -78,6 +79,7 @@
                    url:'<?php echo site_url("Admin/dodajModeratora"); ?>',
                    type:"POST",
                    data: {favorite: favorite},
+                   async: false,
                    dataType: 'json',
                    success: function(msg){
                        $("#proba").html(msg.favorite)
@@ -85,8 +87,9 @@
                });
                 window.location = "http://localhost:8080/Admin/adminMode";
            });
-           $('#block').click(function(){
-               alert("<?php echo base_url("Admin/ukloni"); ?>");
+           $('#block').click(function(event){
+                event.preventDefault();
+               
                var favorite = [];
                $.each($("input[name='user']:checked"), function(){
                    favorite.push($(this).val());
@@ -95,14 +98,17 @@
                    url:'<?php echo site_url("Admin/ukloni"); ?>',
                    type:"POST",
                    data: {favorite: favorite},
+                   async: false,
                    dataType: 'json',
                    success: function(msg){
                        $("#proba").html(msg.favorite)
                    }
                });
+               window.location = "http://localhost:8080/Admin/adminMode";
            });
-           $('#delete').click(function(){
-               alert("<?php echo base_url("Admin/index"); ?>");
+           $('#delete').click(function(event){
+               event.preventDefault();
+               
                var favorite = [];
                $.each($("input[name='user']:checked"), function(){
                    favorite.push($(this).val());
@@ -111,6 +117,7 @@
                    url:'<?php echo site_url("Admin/oduzmiModeratora"); ?>',
                    type:"POST",
                    data: {favorite: favorite},
+                   async: false,
                    dataType: 'json',
                    success: function(msg){
                        $("#proba").html(msg.favorite)

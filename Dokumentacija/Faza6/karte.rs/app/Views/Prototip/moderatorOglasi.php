@@ -36,7 +36,7 @@
             {?>
                 <tr><td><?php echo $news->Naziv?> </td>
                     <td><?php echo $news->Status?> </td>
-                    <td><input type="checkbox" value="<?php echo $news->IdD;?>" name="user"></td></tr>
+                    <td><input type="checkbox" value="<?php echo $news->IdD;?>" name="oglas"></td></tr>
 
          <?php   }?>
                <tr>
@@ -62,24 +62,32 @@
 
    <script type="text/javascript">
        $(document).ready(function() {
-           $('#obrisiOglas').click(function(){
-               alert("<?php echo base_url("Moderator/index"); ?>");
+           $('#obrisiOglas').click(function(event){
+               event.preventDefault();
+ 
                var favorite = [];
                $.each($("input[name='oglas']:checked"), function(){
                    favorite.push($(this).val());
                });
+               
+               
                $.ajax({
                    url:'<?php echo site_url("Moderator/obrisiOglas"); ?>',
                    type:"POST",
                    data: {favorite: favorite},
+                   async: false,
                    dataType: 'json',
                    success: function(msg){
                        $("#proba").html(msg.favorite)
+                       
                    }
+                   
                });
+                window.location = "http://localhost:8080/Moderator/moderatorMode";
            });
-           $('#statusOglasa').click(function(){
-               alert("<?php echo base_url("Moderator/Status"); ?>");
+           $('#statusOglasa').click(function(event){
+               event.preventDefault();
+  
                var favorite = [];
                $.each($("input[name='oglas']:checked"), function(){
                    favorite.push($(this).val());
@@ -88,11 +96,13 @@
                    url:'<?php echo site_url("Moderator/promeniStatus"); ?>',
                    type:"POST",
                    data: {favorite: favorite},
+                   async: false,
                    dataType: 'json',
                    success: function(msg){
                        $("#proba").html(msg.favorite)
                    }
                });
+               window.location = "http://localhost:8080/Moderator/moderatorMode";
            });
        });
    </script>

@@ -50,8 +50,29 @@ class News extends Model
           
       }
       
-	  /**
+       /**
       * Funkcija koja dohvata sve oglase iz baze i vrsi njihovu paginaciju
+      * @param int $perPage koliko zelimo da prikazemo oglasa po stranici
+      * @return array      /
+      */
+      public function svioglasi(int $perPage) {
+          
+          $pager = \Config\Services::pager(null, null, false);
+          $page = $pager->getCurrentPage('default');
+          
+          $query = $this->where('Tip','O');
+          
+          
+          $total = $query->countAllResults(false);
+          $this->pager = $pager->store('default', $page, $perPage, $total, 0);
+          $offset = ($page - 1) * $perPage;
+          
+          return $query->orderBy('Status','DESC')->findAll($perPage, $offset);       
+      }
+      
+      
+      /**
+      * Funkcija koja dohvata sve aktivne oglase iz baze i vrsi njihovu paginaciju
       * @param int $perPage koliko zelimo da prikazemo oglasa po stranici
       * @return array      /
       */
@@ -60,7 +81,7 @@ class News extends Model
           $pager = \Config\Services::pager(null, null, false);
           $page = $pager->getCurrentPage('default');
           
-          $query = $this->where('Tip','O');//->where('Status','O');
+          $query = $this->where('Tip','O')->where('Status','A');
           
           
           $total = $query->countAllResults(false);

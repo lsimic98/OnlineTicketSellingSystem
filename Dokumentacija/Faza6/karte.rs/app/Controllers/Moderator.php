@@ -4,6 +4,8 @@ use App\Models\User;
 use App\Models\News;
 use App\Models\Role;
 use App\Models\Roles;
+use App\Models\Transakcija;
+use App\Models\Stavka;
 
 class Moderator extends Korisnik{
 
@@ -27,7 +29,7 @@ class Moderator extends Korisnik{
     {
         $this->method = 'userInfo';
         $newsDB = new News();
-        $news = $newsDB->oglasi(5);
+        $news = $newsDB->svioglasi(5);
         $data = [
             'news' => $news,
             'pager' => $newsDB->pager
@@ -47,7 +49,7 @@ class Moderator extends Korisnik{
         $ime = $this->request->getVar('pretraziKorisnike');
         if($ime==null)
             $ime="";
-        $this->method = 'dodajOglas';
+        $this->method = 'userInfo';
         $newsDB = new News();
         $news = $newsDB->pretragaOglasa(5,$ime);
         $data = [
@@ -89,7 +91,7 @@ class Moderator extends Korisnik{
 
         echo json_encode($response);
         
-        $this->moderatorMode();
+        //$this->moderatorMode();
 
     }
 	  /**

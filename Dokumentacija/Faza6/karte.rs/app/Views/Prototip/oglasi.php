@@ -18,6 +18,9 @@
                case "Admin":
                    $str = site_url('Admin/objaviOglas');
                    break;
+               case "Moderator":
+                   $str = site_url('Moderator/objaviOglas');
+                   break;
            }
            ?>
           <a href="<?php echo $str?>">

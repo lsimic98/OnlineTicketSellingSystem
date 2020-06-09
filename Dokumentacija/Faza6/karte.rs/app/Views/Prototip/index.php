@@ -5,7 +5,7 @@
             <form class="example" >
             <tr>
                 <td>  <input type="text" name="search" class = "searchText"placeholder="Unesite tekst za pretragu"></td>
-                <td>    <button type="submit"class= "stupidButton" formaction="<?php echo site_url('Gost/pretraga');?>"> <i class="fa fa-search" aria-hidden="true"></i></button></td>
+                <td>    <button type="submit"class= "stupidButton" formaction="<?php echo site_url($opis.'/pretraga');?>"> <i class="fa fa-search" aria-hidden="true"></i></button></td>
             </tr>
         </form>
         </table>
@@ -25,7 +25,7 @@
                 echo " <div id='slikaIndex'>";
                 echo '<img alt="computer" src="data:image/jpeg;base64,' . base64_encode($vest->Slika) . '" />';
                 echo "</div>";
-                echo "<div id ='happyDiv'><p > $vest->Opis</p></div> ";
+                echo "<div id ='happyDiv'><p> $vest->Opis</p></div> ";
                    //$link = site_url("Korisnik/addtocart/{$vest->IdD}");
                     $cont = current_url(true)->getSegment(1);
                     if($cont == "") $cont = "Gost";

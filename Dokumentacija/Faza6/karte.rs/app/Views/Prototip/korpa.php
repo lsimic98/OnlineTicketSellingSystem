@@ -14,7 +14,7 @@
             <h1 align="center">Plaćanje</h1>
             <form action="  <?php  if(isset($_SESSION['user']))
                 echo site_url($opis."/kupi");
-            else  echo site_url("Gost/login");
+            else  echo site_url("Gost/login/Molimo vas da se ulogijete kako bi nastavili kupovinu");
             ?>" method="post">
 
                 <ul class="form-style-2 table-responsive">
@@ -111,7 +111,7 @@ DEL;
 
                     <li>
                         <div id="kart_error">GREŠKA PRI UNOSU PODATAKA</div>
-                        <input id = "<?php  if(isset($_SESSION['user']))  echo"kupi";  else  echo ""?>"  type="submit" name="submit">
+                        <input id = "<?php  if(isset($_SESSION['user']))  echo"kupi";  else  echo ""?>"  type="submit" name="submit" value="Kupi" style="width:100%; font-size: 20px; font-weight: 600;">
                     </li>
 
                 </ul>

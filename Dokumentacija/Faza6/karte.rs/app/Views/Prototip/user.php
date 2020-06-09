@@ -58,7 +58,7 @@
                                 '<p>Unesite lozinku kao potvrdu o brisanju naloga</p><input id="swal-input1" class="swal2-input" placeholder="Lozinka">' +
                                 '<input id="swal-input2" class="swal2-input" placeholder="Ponovite lozinku">',
                         preConfirm: function () {
-                            alert("SOmething");
+                            //alert("SOmething");
                             /*return new Promise(function (resolve) {
                                 resolve([
                                     $('#swal-input1').val(),
@@ -66,6 +66,7 @@
                                 ])
                             })*/
         
+                            
                             return window.location.href = ""+ href + "/" + $('#swal-input1').val() + "/" + $('#swal-input2').val();
                        
                             
